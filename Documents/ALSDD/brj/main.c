@@ -1,5 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
+//islam chikour
 typedef struct node
 {
     int value ;
