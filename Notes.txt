@@ -1,0 +1,9 @@
+> THIS FILE TXT WILL CONTAIN ALL OF NOTES WE NEED FOR THE TP ALSDD
+===============================================
+pour la list :
+le nom du structure  --> athlethe
+-------------------------
+struct athlethe
+    nom  (string)
+    pointeur vers athlethe
+--------------------------
