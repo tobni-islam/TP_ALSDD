@@ -7,6 +7,17 @@ struct athlethe
     nom  (string)
     pointeur vers athlethe
 --------------------------
-ani kmlt la serie  te3 td b string w type string rah ymchi howa char[25] 
-b3thli aymen sks fonction m9wda mb3d nfhmk fiha 
-point rj3t ismo ptr  . 
+/* hayla kader khedma mliha ajbetni , hayla yaser lokan nakhadmo haka rah navanciu mlih.
+1. manhtajouch les fonction:  acces_pos, acces_valeur, inserer, supp_pos
+
+2. la fonction 'inserer'  normalment manhtajohach pcq ida konna rah nzdo athlethe f une liste 
+ahsen tariqa hia nzidoh mn loul , mathemech lposition pcq aslan liste d'Athlethes mch ordonnes.
+donc makallah nparcouri tous la list pour inserer une athlethe , ndirouh fi blaste la tete directe.
+
+3. rani badelt le nom ta3 le pointeur t3 la tete fl procedure 'create' mn 'p' l 'tete' + badelt chwi f lfonction
+mba3d nzid nfahmek fiha
+
+4. mzal kayn problem fi random mba3d ntfahmo 3lih
+*/ . 
+
+
