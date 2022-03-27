@@ -19,4 +19,6 @@ mba3d nzid nfahmek fiha
 
 4. kmlt les procedres t3 tabpays et tabepreuve w khdemet l procedure 1 t3 creer_tabjo mais mzal kayn problem sghir t3 random mba3d ntfahmo 3lih.
 
+5. habat les fichier 'nom' kont ntester bih mba3d nhoto fih les noms athlethes, + 'pays' li fih 150 pays + 'epreuve' li fih 200 epreuves.
+
 
