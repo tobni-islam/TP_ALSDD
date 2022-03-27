@@ -11,9 +11,9 @@ typedef struct athlethe
     struct athlethe *suiv ;
 }athlethe ;
 
-typedef athlethe  * ptr ; // nouveau type pour les pointeures
+typedef athlethe  * ptr ; // nouveau type pour les pointeures ptr khirmn point 
 
-#define null NULL
+#define null NULL  // hadi b3thali aymen mb3d nfhmk fiha 
 const unsigned MAX = 10;
 const int nbCountries = 195;
 
