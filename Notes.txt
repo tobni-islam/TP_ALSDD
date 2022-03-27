@@ -7,3 +7,6 @@ struct athlethe
     nom  (string)
     pointeur vers athlethe
 --------------------------
+ani kmlt la serie  te3 td b string w type string rah ymchi howa char[25] 
+b3thli aymen sks fonction m9wda mb3d nfhmk fiha 
+point rj3t ismo ptr  . 
