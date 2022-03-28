@@ -7,6 +7,8 @@ struct athlethe
     nom  (string)
     pointeur vers athlethe
 --------------------------
+mtnsech tbdl ism fichier tnahilo.tct ki thez lcode mn 3ndi . 
+
 
 ccc ani kmlt khdmti dert procedure 2 w 3 galna t9dro tbdlo les parametres  w zedt whd les modules ns7a9ohom sahlin kima li tverifi ida hada pays wla non w trj3lk indice te3o . 
 lprogramme te3k mzel maymchich 3ndi mn3rf leh sema m9drtch ntesti bsah syntax rah s7i7 rah ycompili normal a9ra les commentaires dok tfhm wsh kdhmt hwayj sahlin brk bsah lezm ndirohom ydiw wa9t. 
