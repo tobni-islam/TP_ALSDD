@@ -12,6 +12,10 @@ ccc ani kmlt khdmti dert procedure 2 w 3 galna t9dro tbdlo les parametres  w zed
 lprogramme te3k mzel maymchich 3ndi mn3rf leh sema m9drtch ntesti bsah syntax rah s7i7 rah ycompili normal a9ra les commentaires dok tfhm wsh kdhmt hwayj sahlin brk bsah lezm ndirohom ydiw wa9t. 
 
 ana mfhmtch leh drt 255 godam tabpays , 
+dir copier coller lel code jdid rah s7i7 f syntax bsah logique m3lblich m9drtch nsyii . 
+
+b9atlk khdmtk dok chof kifah trigl l module lowl random w les noms dir les ensembles wla dabr rask .
+ana ghodwa wla mb3d nkml les procedures lokhrin b9atlk lowla nta hiya sah .
 
 
 
