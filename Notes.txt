@@ -7,18 +7,11 @@ struct athlethe
     nom  (string)
     pointeur vers athlethe
 --------------------------
-hayla kader khedma mliha ajbetni , hayla yaser lokan nakhadmo haka rah navanciu mlih.
-1. manhtajouch les fonction:  acces_pos, acces_valeur, inserer, supp_pos
 
-2. la fonction 'inserer'  normalment manhtajohach pcq ida konna rah nzdo athlethe f une liste 
-ahsen tariqa hia nzidoh mn loul , mathemech lposition pcq aslan liste d'Athlethes mch ordonnes.
-donc makallah nparcouri tous la list pour inserer une athlethe , ndirouh fi blaste la tete directe.
+ccc ani kmlt khdmti dert procedure 2 w 3 galna t9dro tbdlo les parametres  w zedt whd les modules ns7a9ohom sahlin kima li tverifi ida hada pays wla non w trj3lk indice te3o . 
+lprogramme te3k mzel maymchich 3ndi mn3rf leh sema m9drtch ntesti bsah syntax rah s7i7 rah ycompili normal a9ra les commentaires dok tfhm wsh kdhmt hwayj sahlin brk bsah lezm ndirohom ydiw wa9t. 
 
-3. rani badelt le nom ta3 le pointeur t3 la tete fl procedure 'create' mn 'p' l 'tete' + badelt chwi f lfonction
-mba3d nzid nfahmek fiha
+ana mfhmtch leh drt 255 godam tabpays , 
 
-4. kmlt les procedres t3 tabpays et tabepreuve w khdemet l procedure 1 t3 creer_tabjo mais mzal kayn problem sghir t3 random mba3d ntfahmo 3lih.
-
-5. habat les fichier 'nom' kont ntester bih mba3d nhoto fih les noms athlethes, + 'pays' li fih 150 pays + 'epreuve' li fih 200 epreuves.
 
 
