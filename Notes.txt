@@ -1,23 +1,29 @@
 > THIS FILE TXT WILL CONTAIN ALL OF NOTES WE NEED FOR THE TP ALSDD
-===============================================
-pour la list :
-le nom du structure  --> athlethe
--------------------------
-struct athlethe
-    nom  (string)
-    pointeur vers athlethe
---------------------------
-mtnsech tbdl ism fichier tnahilo.tct ki thez lcode mn 3ndi . 
+------------------------------------------------------------------------------------------------------------------------------------
+1.  asma3 rani fritha m3a random  rahi tmchi bien tsemma lprocedure 1 DONE.
 
+2.  rani bdelt chwi f les procedure dert procedure tnahhi les espaces mn ay string 
+nhtajouha ki njou rah ntestou dowla par example: 
+     verif_pays('afghanistan') --> true
+     verif_pays('AFGHANISTAN') --> true
+     verif_pays('    AFGHanistan') --> true
+     verif_pays('    afghaNISTAn         ') --> true
+     verif_pays('afou') --> false
 
-ccc ani kmlt khdmti dert procedure 2 w 3 galna t9dro tbdlo les parametres  w zedt whd les modules ns7a9ohom sahlin kima li tverifi ida hada pays wla non w trj3lk indice te3o . 
-lprogramme te3k mzel maymchich 3ndi mn3rf leh sema m9drtch ntesti bsah syntax rah s7i7 rah ycompili normal a9ra les commentaires dok tfhm wsh kdhmt hwayj sahlin brk bsah lezm ndirohom ydiw wa9t. 
+w nehtajouha tani fi verif_epreuve w  indice_pays  w  indice_epreuve ... etc.
+mais lprobleme li kent hab nhello wli dali yaser wakt w mahallitouch howa les espaces bin les mots , par example:
+    verif_pays('afgha    nis tan') -->  true.
+    mais ana habha trounourti  false.
+tbanli hada l problem nkhalih  w khlas deja mch bayn w zid ydi lwakt bla fayda kbira. ida bka lwakt blak nkaser rasi m3ah
 
-ana mfhmtch leh drt 255 godam tabpays , 
-dir copier coller lel code jdid rah s7i7 f syntax bsah logique m3lblich m9drtch nsyii . 
+3. rani badelt chwi fles fichier epreuve.txt   w  pays.txt  matansach telechargihom lazm
 
-b9atlk khdmtk dok chof kifah trigl l module lowl random w les noms dir les ensembles wla dabr rask .
-ana ghodwa wla mb3d nkml les procedures lokhrin b9atlk lowla nta hiya sah .
+4. rani cheft les error w testit les cas ta3 les 3 premier modules w rahom ymcho bien normalment tsma rana kmalnahom.
 
+5. les procedures lokhrin rahom sahlin normalment vendredi nkamlohom lazm.
+note:----------------------------------------------------------------------------------------------
+le nombre t3 les pays w les epreuves yaser, mais rani dayrhom constants tsema ki theb testi haja
+takder tbedel nombre t3hom direct mn lfoq  (example :  maxpays = 4,maxepreuve= 4) bla ma tok3od 
+tbadalhom fi kol module w fi l main. mba3d traja3hom normal.
 
-
+ida mzal 3andek l problem t3 les fichier 'noms.txt'  'epreuve.txt'  'pays.txt' qolli.
