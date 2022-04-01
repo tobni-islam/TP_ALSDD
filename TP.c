@@ -187,11 +187,20 @@ void creer_tabjo(ptr tabjo[maxepreuve][maxpays])
 
 void inserath(string nomath , int nump ,int nume , ptr tabjo[maxepreuve][maxpays] )
 {
-    ptr ath ; 
-    ath = malloc(sizeof(athlethe));  //new maillon
-    aff_nom(ath,nomath); 
-    aff_adr(ath,tabjo[nume][nump]); //aff_adr  ath -->  tabjo(tete) 
-    tabjo[nume][nump] = ath;  // la tete = new maillon.
+    ptr tmp = tabjo[nume][nump] ;
+    while(tmp != NULL)                    //verifier ida kayn ism had l'athlethe wla non .
+    {
+        if( !(strcmp(tmp->nom , nomath)) )  return 0 ; //mndiroch insertion
+        aff_adr(tmp,tmp->suiv) ;
+    }
+    ptr ath ;
+    ath = malloc(sizeof(athlethe));     // athlethe li hab ndirolo insertion
+    aff_nom(ath,nomath);
+    ath ->suiv = NULL ;
+    ptr p = tabjo[nume][nump]->suiv;  // hada 2eme maillon habin nrbtoh bl athlethe jdid bah nchainiw bah mnperdiwch la liste
+    ath->suiv = p ;                      // linkage m3a 2eme maillon
+    (tabjo[nume][nump])->suiv = ath;    //linkage te3 head m3a ath jdid
+    (tabjo[nume][nump]) = ath ;        // tete twli hiya ath jdid .
 }
 
 int verif_pays (string pays , char tabpays[maxpays][255] ) // tgolk ida kayn had l pays wla non
@@ -272,6 +281,42 @@ void listathpays(string pays , char tabpays[maxpays][255] , char tabepreuve [max
    if ( trouv == 0 ) printf(" ce pays n'aucun concurrent ")  ; // kayn f tabpays bsah m3ndoch athlethe
    }
     else  printf("ce pays n'existe pas ") ; // l ism li dkhlto ghalt
+}
+
+// 4eme procedure
+int sansath(int ne , ptr tabjo[maxepreuve][maxpays] )
+{
+    int np ;
+    for (np = 0 ; np <200 ; np ++ )
+    {
+        if (tabjo[ne][np] != NULL ) return 0 ;
+    }
+    return 1  ;
+}
+
+
+//5eme procedure twila bzef n5aliwha hiya la5ra
+
+//6eme procedure li tsuprimi
+void suppays (string pays , ptr tabjo[maxepreuve][maxpays] ,char tabpays[maxpays][255] )
+{
+    // nkhabi fih indice te3  l pays
+    int np = indice_pays(pays,char tabpays[maxpays][255]) ;
+    // hadi bah nsuprimih mn tabpays w mb3d mn tabjo bsah kayn mpchkil l pays lakher yb9a m3ewd 2 marat
+    for (int i =np ; np < maxpays ; np ++){
+        strcpy( tabpays[np] ,tabpays[np+1]) ;
+    }
+
+    for (int ne=0 ; ne < maxepreuve ; ne++ )
+    {
+        tabjo[ne][np] = NULL ;
+    }
+}
+
+// 7eme procedure
+void suppath (string nomath , int nump , int nume , ptr tabjo[maxepreuve][maxpays])
+{
+    supp_nom (tabjo[nume][nump] , nomath ) ;
 }
 
 
