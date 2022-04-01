@@ -16,8 +16,8 @@ typedef athlethe  * ptr ; // nouveau type pour les pointeures ptr khirmn point
 
 const unsigned MAX = 10;
 
-const int maxpays = 150;
-const int maxepreuve = 200;
+const int maxpays = 3;
+const int maxepreuve = 3;
 
 
 
@@ -51,7 +51,7 @@ void aff_nom (ptr p , string n  )
 ptr create()
 {
     FILE* fichier;
-    fichier = fopen("noms.txt","r");// fichier 'noms' nhoto fih les noms li nehtajouhm
+    fichier = fopen("noms","r");// fichier 'noms' nhoto fih les noms li nehtajouhm
     ptr tete,tmp,nouv ;
     int n ;
     string x,y ;
@@ -84,35 +84,13 @@ void afficher(ptr p)
 {
     ptr tmp ;
     tmp = p ;
-    printf("les participant sont  : ");
+    printf("les athlethes sont : \n");
     while ( tmp != NULL)
     {
-        printf("-> %s ",tmp->nom );
+        printf("   --> %s ",tmp->nom );
         tmp = tmp -> suiv ;
     }
     printf("\n") ;
-}
-
-void supp_nom (ptr tete , string n )
-{
-    ptr  prec, p;
-    p = tete;
-    if (p->nom == n) {
-        tete = tete->suiv;
-    }
-    else {
-        while ((p != NULL) && (strcmp(p->nom ,n)))
-        {
-            prec = p;
-            p = suivant(p);
-        }
-        if (p == NULL) {
-            printf("la valeur n'existe pas \n");
-        } else {
-            prec->suiv = p->suiv ;
-        }
-    }
-    liberer(p);
 }
 
 int longeur(ptr p)
@@ -150,7 +128,7 @@ void creer_tabpays(char tabpays[maxpays][255]) //theb mba3d nfehmek fiha mlih
 {
     char pay[255];
     FILE* fichier;
-    fichier = fopen("pays.txt","r");
+    fichier = fopen("pays","r");
     for(int i =0;i<maxpays;i++){
         fgets(pay,255,fichier);
         strcpy(pay,lower_case(pay));
@@ -164,7 +142,7 @@ void creer_tabepreuve(char tabepreuve[maxepreuve][255])
 {
     char epreuve[255];
     FILE* fichier;
-    fichier = fopen("epreuve.txt","r");
+    fichier = fopen("epreuve","r");
     for(int i =0;i<maxepreuve;i++){
         fgets(epreuve,255,fichier);
         strcpy(epreuve,lower_case(epreuve));
@@ -183,33 +161,48 @@ void creer_tabjo(ptr tabjo[maxepreuve][maxpays])
     }
 }
 
+
+//hadi fonction tverifier ida nom ath yexister f liste (True) w la non (False)
+int verif_ath(string nomath,int nump, int nume, ptr tabjo[maxepreuve][maxpays]){
+    int b = 0;
+    ptr tmp = tabjo[nume][nump];
+    while (tmp != NULL)
+    {
+        if(!strcmp(((*tmp).nom),nomath)){
+            b = 1;
+            return b;
+        }
+        aff_adr(tmp,tmp->suiv);
+    }
+    return b;
+
+}
 // 2eme procedure (modifier)
 
 void inserath(string nomath , int nump ,int nume , ptr tabjo[maxepreuve][maxpays] )
 {
     ptr tmp = tabjo[nume][nump] ;
-    while(tmp != NULL)                    //verifier ida kayn ism had l'athlethe wla non .
+    if((!verif_ath(nomath,nump,nume,tabjo)) && (longeur(tabjo[nume][nump]) < 10)) //Si nom ath n'exite pas et la longeur t3 liste < 10 donc inserer ath
     {
-        if( !(strcmp(tmp->nom , nomath)) )  return 0 ; //mndiroch insertion
-        aff_adr(tmp,tmp->suiv) ;
+        ptr ath = malloc(sizeof(athlethe)); //new maillon
+        aff_nom(ath,nomath); 
+        aff_adr(ath,tabjo[nume][nump]);// aff_adr m3a la tete de liste
+        tabjo[nume][nump] = ath;  // la nouveau tete est le nouveau maillon.
+    }else if (longeur(tabjo[nume][nump]) == 10)
+    {
+        printf("Il y a déjà 10 athlètes inscrits, vous ne pouvez pas inserer un autre athlète!\n");
+    }else{
+        printf("il y a deja un athlethe inscrit avec ce nom.\n");
     }
-    ptr ath ;
-    ath = malloc(sizeof(athlethe));     // athlethe li hab ndirolo insertion
-    aff_nom(ath,nomath);
-    ath ->suiv = NULL ;
-    ptr p = tabjo[nume][nump]->suiv;  // hada 2eme maillon habin nrbtoh bl athlethe jdid bah nchainiw bah mnperdiwch la liste
-    ath->suiv = p ;                      // linkage m3a 2eme maillon
-    (tabjo[nume][nump])->suiv = ath;    //linkage te3 head m3a ath jdid
-    (tabjo[nume][nump]) = ath ;        // tete twli hiya ath jdid .
 }
 
-int verif_pays (string pays , char tabpays[maxpays][255] ) // tgolk ida kayn had l pays wla non
+int verif_pays (string pays , char tabpays[maxpays][255],int nbpays) // tgolk ida kayn had l pays wla non
 {
     int trouv =0;
     char str[255];
     supp_blanc(pays);
     strcpy(pays,lower_case(pays));
-    for (int i = 0 ; i< maxpays ; i++)
+    for (int i = 0 ; i< nbpays; i++)
     {
         strcpy(str,tabpays[i]);
         supp_blanc(str);
@@ -222,13 +215,13 @@ int verif_pays (string pays , char tabpays[maxpays][255] ) // tgolk ida kayn had
     return trouv;
 }
 
-int verif_epreuve (string epreuve , char tabepreuve[maxepreuve][255]) // tgolk ida kayn l'epreuve li d5ltha wla non  wla non
+int verif_epreuve (string epreuve , char tabepreuve[maxepreuve][255],int nbepreuve) // tgolk ida kayn l'epreuve li d5ltha wla non  wla non
 {
     int trouv = 0 ;
     char str[255];
     supp_blanc(epreuve);
     strcpy(epreuve,lower_case(epreuve));
-    for (int i = 0 ; i< maxepreuve; i++)
+    for (int i = 0 ; i< nbepreuve; i++)
     {
         strcpy(str,tabepreuve[i]);
         supp_blanc(str);
@@ -243,34 +236,36 @@ int verif_epreuve (string epreuve , char tabepreuve[maxepreuve][255]) // tgolk i
 
 
 
-int indice_pays(string pays ,char tabpays[maxpays][255] ) // tmdlha ism bled tmdlk numero te3o
+int indice_pays(string pays ,char tabpays[maxpays][255],int nbpays) // tmdlha ism bled tmdlk numero te3o
 {
-        for (int i = 0; i < maxpays; i++)
+        for (int i = 0; i < nbpays; i++)
         {
             if (!(strcmp(tabpays[i], pays)))
                 return i;
         }
+        return (maxpays +1);
 }
 
-int indice_epreuve(string epreuve, char tabepreuve[maxepreuve][255]) // wla epreuve nfs lkhdma galna t9dro tzido parametre
+int indice_epreuve(string epreuve, char tabepreuve[maxepreuve][255],int nbepreuve) // wla epreuve nfs lkhdma galna t9dro tzido parametre
 {
-        for (int i = 0; i < maxepreuve; i++)   // mlgitch kifah ndkhl tabpays psa mahoch parametre
+        for (int i = 0; i < nbepreuve; i++)   // mlgitch kifah ndkhl tabpays psa mahoch parametre
         {
             if (!(strcmp(tabepreuve[i], epreuve)))
                 return i;
         }
+        return(maxepreuve +1);
 }
 
 
  // 3eme procedure
 
-void listathpays(string pays , char tabpays[maxpays][255] , char tabepreuve [maxepreuve][255] , ptr tabjo[maxepreuve][maxpays])
+void listathpays(string pays , char tabpays[maxpays][255] ,int nbpays, char tabepreuve [maxepreuve][255] ,int nbepreuve, ptr tabjo[maxepreuve][maxpays])
 {
     int trouv = 0 ;
-    if (verif_pays(pays,tabpays))
+    if (verif_pays(pays,tabpays,nbpays))
     {
-   int p =  indice_pays(pays,tabpays); // on stocke l 'indice te3 lpays f p
-   for (int i=0 ; i<maxepreuve ; i ++)
+   int p =  indice_pays(pays,tabpays,nbpays); // on stocke l 'indice te3 lpays f p
+   for (int i=0 ; i<nbepreuve ; i ++)
    {
        if (tabjo[i][p] != NULL) {
            printf("%s", tabepreuve[i]); //afficher l'epreuve
@@ -284,55 +279,121 @@ void listathpays(string pays , char tabpays[maxpays][255] , char tabepreuve [max
 }
 
 // 4eme procedure
-int sansath(int ne , ptr tabjo[maxepreuve][maxpays] )
+int sansath(int ne , ptr tabjo[maxepreuve][maxpays],int nbpays )
 {
     int np ;
-    for (np = 0 ; np <200 ; np ++ )
+    int trouv = 1;
+    for (np = 0 ; np <nbpays; np ++ )
     {
-        if (tabjo[ne][np] != NULL ) return 0 ;
+        if (tabjo[ne][np] != NULL ){
+            trouv = 0;
+            return trouv;
+        }
     }
-    return 1  ;
+    return trouv;
 }
 
 
-//5eme procedure twila bzef n5aliwha hiya la5ra
+//5eme procedure
+void listjo(ptr tabjo[maxepreuve][maxpays],char tabpays[maxpays][255],int nbpays,char tabepreuve[maxepreuve][255],int nbepreuve){
+    for(int i= 0;i<nbepreuve;i++){
+        if(!sansath(i,tabjo,nbpays)){
+            printf("%s",tabepreuve[i]);
+            printf("######################################################\n");
+            printf("\n");
+            for(int j=0;j<nbpays;j++){
+                printf("%s",tabpays[j]);
+                printf("--------------------------\n");
+                if(longeur(tabjo[i][j]) == 0){
+                    printf("Ce pay n'a aucun athlethe en l'epreuve %s.\n",tabepreuve[j]);
+                }else{
+                    afficher(tabjo[i][j]);
+                }
+                printf("------------------------------------\n");
+            }
+        }
+    }
+}
 
 //6eme procedure li tsuprimi
-void suppays (string pays , ptr tabjo[maxepreuve][maxpays] ,char tabpays[maxpays][255] )
+void suppays (string pays , ptr tabjo[maxepreuve][maxpays] ,char tabpays[maxpays][255] ,int *nbpays,int *nbepreuve)
 {
     // nkhabi fih indice te3  l pays
-    int np = indice_pays(pays,tabpays[maxpays][255]) ;
+    int np = indice_pays(pays,tabpays,*nbpays) ;
     // hadi bah nsuprimih mn tabpays w mb3d mn tabjo bsah kayn mpchkil l pays lakher yb9a m3ewd 2 marat
-    for (int i =np ; np < maxpays ; np ++){
+    for (int i =np ; np < *nbpays ; np ++){
         strcpy( tabpays[np] ,tabpays[np+1]) ;
     }
-
-    for (int ne=0 ; ne < maxepreuve ; ne++ )
+    for (int ne=0 ; ne < *nbepreuve ; ne++ )
     {
-        tabjo[ne][np] = NULL ;
+        tabjo[ne][np] = tabjo[ne][np+1];
     }
+    for(int ne=0;ne<*nbepreuve;ne++){
+        tabjo[ne][*nbpays] = NULL;
+    }
+    (*nbpays)--;
 }
 
 // 7eme procedure
-void suppath (string nomath , int nump , int nume , ptr tabjo[maxepreuve][maxpays])
+void supath (string nomath, int nump,int nume, ptr tabjo[maxepreuve][maxpays])
 {
-    supp_nom (tabjo[nume][nump] , nomath ) ;
+    ptr  prec, p;
+    p = tabjo[nume][nump];
+    if (p->nom == nomath) {
+        tabjo[nume][nump] = tabjo[nume][nump]->suiv;
+    }
+    else {
+        while ((p != NULL) && (strcmp(p->nom ,nomath)))
+        {
+            prec = p;
+            p = suivant(p);
+        }
+        if (p == NULL) {
+            printf("Ce nom n'existe pas.\n");
+        } else {
+            prec->suiv = p->suiv ;
+        }
+    }
+    liberer(p);
 }
+
+
+//8eme procedure tsuppremer les epreuves li mafihom hta athelethe
+
+void suplignesvides(ptr tabjo[maxepreuve][maxpays],int nbpays,int *nbepreuve,char tabepreuve[maxepreuve][255]){
+    for(int ne=0;ne< *nbepreuve;ne++){
+        if(sansath(ne,tabjo,nbpays)){
+            for(int i=ne;i< *nbepreuve;i++){
+                for(int j=0;j<nbpays;j++){
+                    tabjo[i][j] = tabjo[i+1][j];
+                }
+            }
+            for(int i= ne ;i< *nbepreuve;i++ ){
+                strcpy(tabepreuve[i],tabepreuve[i+1]);
+            }
+        (*nbepreuve)--;
+        }
+    }
+}
+    
 
 
 
 int main()
 {
-    ptr  p ;
-    p = create() ;
-    //test tabepreuve et tabpays
     srand(time(0));
-    char tabpays[150][255];
-    char tabepreuve[200][255];
-    ptr tabjo[200][150];
+    int *nbpays ,np;
+    np = maxpays;
+    nbpays = &np;
+    int *nbepreuve,ne;
+    ne = maxepreuve;
+    nbepreuve = &ne;
+    
+    char tabpays[maxpays][255];
+    char tabepreuve[maxepreuve][255];
+    ptr tabjo[maxepreuve][maxpays];
     creer_tabpays(tabpays);
     creer_tabepreuve(tabepreuve);
     creer_tabjo(tabjo);
-    
    return 0;
 }
