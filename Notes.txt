@@ -1,32 +1,8 @@
 > THIS FILE TXT WILL CONTAIN ALL OF NOTES WE NEED FOR THE TP ALSDD
 ------------------------------------------------------------------------------------------------------------------------------------
-1.  asma3 rani fritha m3a random  rahi tmchi bien tsemma lprocedure 1 DONE.
+1. rani virifit les procedures li khdemethom w testit les cas possibles .
+2. kemelt les procedures les bkaw (5 eme + 8 eme) w rahom ymcho bien tsema hka rana kmelna les procedures kamel mzal ghir l'optimization + les cas 
+specials (les noms arabs, les noms femme et homme, kermi w judo , les cas t3 l3bad samtin kima tdekhel dowla makanech wla les noms maj et min ... etc) 
+hada khati l'affichage les lazm nakhadmo 3lih tani.
+3. ki theb testi haja bah tneqes 3la rohek atle3 lfoq w bedel ghir maxpays, maxepreuve (example maxpays =3, maxepreuve =3) bah tji wadha w sahla bah testiha w tchof resultat w mbe3d raja3ha normal.
 
-2.  rani bdelt chwi f les procedure dert procedure tnahhi les espaces mn ay string 
-nhtajouha ki njou rah ntestou dowla par example: 
-     verif_pays('afghanistan') --> true
-     verif_pays('AFGHANISTAN') --> true
-     verif_pays('    AFGHanistan') --> true
-     verif_pays('    afghaNISTAn         ') --> true
-     verif_pays('afou') --> false
-
-w nehtajouha tani fi verif_epreuve w  indice_pays  w  indice_epreuve ... etc.
-mais lprobleme li kent hab nhello wli dali yaser wakt w mahallitouch howa les espaces bin les mots , par example:
-    verif_pays('afgha    nis tan') -->  true.
-    mais ana habha trounourti  false.
-tbanli hada l problem nkhalih  w khlas deja mch bayn w zid ydi lwakt bla fayda kbira. ida bka lwakt blak nkaser rasi m3ah
-
-3. rani badelt chwi fles fichier epreuve.txt   w  pays.txt  matansach telechargihom lazm
-
-4. rani cheft les error w testit les cas ta3 les 3 premier modules w rahom ymcho bien normalment tsma rana kmalnahom.
-
-5. les procedures lokhrin rahom sahlin normalment vendredi nkamlohom lazm.
-note:----------------------------------------------------------------------------------------------
-le nombre t3 les pays w les epreuves yaser, mais rani dayrhom constants tsema ki theb testi haja
-takder tbedel nombre t3hom direct mn lfoq  (example :  maxpays = 4,maxepreuve= 4) bla ma tok3od 
-tbadalhom fi kol module w fi l main. mba3d traja3hom normal.
-
-ida mzal 3andek l problem t3 les fichier 'noms.txt'  'epreuve.txt'  'pays.txt' qolli.
-
---------------------------------------------------------------------------------------
-mzel 3ndi lprobleme te3 les fichiers  ani drt les procedures hadok zid chof kifah nsupprimiw pays mn tabpays 
