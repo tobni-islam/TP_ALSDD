@@ -27,3 +27,6 @@ takder tbedel nombre t3hom direct mn lfoq  (example :  maxpays = 4,maxepreuve= 4
 tbadalhom fi kol module w fi l main. mba3d traja3hom normal.
 
 ida mzal 3andek l problem t3 les fichier 'noms.txt'  'epreuve.txt'  'pays.txt' qolli.
+
+--------------------------------------------------------------------------------------
+mzel 3ndi lprobleme te3 les fichiers  ani drt les procedures hadok zid chof kifah nsupprimiw pays mn tabpays 
