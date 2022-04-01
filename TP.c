@@ -243,7 +243,7 @@ int verif_epreuve (string epreuve , char tabepreuve[maxepreuve][255]) // tgolk i
 
 
 
-int indice_pays(string pays , char tabpays[maxpays][255] ) // tmdlha ism bled tmdlk numero te3o
+int indice_pays(string pays ,char tabpays[maxpays][255] ) // tmdlha ism bled tmdlk numero te3o
 {
         for (int i = 0; i < maxpays; i++)
         {
@@ -301,7 +301,7 @@ int sansath(int ne , ptr tabjo[maxepreuve][maxpays] )
 void suppays (string pays , ptr tabjo[maxepreuve][maxpays] ,char tabpays[maxpays][255] )
 {
     // nkhabi fih indice te3  l pays
-    int np = indice_pays(pays,char tabpays[maxpays][255]) ;
+    int np = indice_pays(pays,tabpays[maxpays][255]) ;
     // hadi bah nsuprimih mn tabpays w mb3d mn tabjo bsah kayn mpchkil l pays lakher yb9a m3ewd 2 marat
     for (int i =np ; np < maxpays ; np ++){
         strcpy( tabpays[np] ,tabpays[np+1]) ;
