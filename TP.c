@@ -30,6 +30,8 @@ void aff_nom (ptr p , string n  );
 ptr create();
 void afficher(ptr p);
 int longeur(ptr p);
+void tab_nom(string tabnom[50]) ;  
+
 
 // ####   Procedure de TP1   #### //
 char *lower_case(char *str);
@@ -37,7 +39,7 @@ void supp_blanc(char* s);
 void creer_tabpays(char tabpays[maxpays][255]);
 void creer_tabepreuve(char tabepreuve[maxepreuve][255]);
 // 1 er procedure
-void creer_tabjo(ptr tabjo[maxepreuve][maxpays]);
+void creer_tabjo(ptr tabjo[maxepreuve][maxpays],string tabnom[50]);
 
 int verif_ath(string nomath,int nump, int nume, ptr tabjo[maxepreuve][maxpays]);  
 // 2 eme procedure
@@ -78,21 +80,25 @@ int main()
     int a = maxepreuve,b = maxpays;
     nbepreuve = &a;
     nbpays = &b;
-    char pay[255];
+    char pays[255];
     char epreuve[255];
+    string tabnom[50] ; 
     string nom;
     int nume,nump;
     //Creation de tabepreuve , tabpays, tabjo
     creer_tabepreuve(tabepreuve);
     creer_tabpays(tabpays);
-    creer_tabjo(tabjo);
+     tab_nom(tabnom); 
+    creer_tabjo(tabjo,tabnom);
+   
     // Menu principale
-    printf("##########    Bienvenue dans cette fucking program qui permet d'organiser les inscription des jeux olympique  #########\n");
-    int choie;
+    printf("##########    Bienvenue dans cette fucking program qui permet d'organiser les inscription des jeux olympiques  #########\n");
+    int choix;
+    /*
     do
     {
-        choie = menu();
-        switch (choie)
+        choix = menu();
+        switch (choix)
     {
     case 1: // afficher kamel les athelethe ta3 kamel les epreuves w kamel les pays
         printf("  ## afficher le contenu complet de la matrice tabjo  ##\n");
@@ -107,10 +113,10 @@ int main()
         printf("> Entrez le nom d'epreuve --> \n");
         fgets(epreuve,255,stdin);
         printf("> Entrez le nom de pay -->  \n");
-        fgets(pay,255,stdin);
+        fgets(pays,255,stdin);
         nume = indice_epreuve(epreuve,tabepreuve,*nbepreuve);
         printf("%d\n",nume);
-        nump = indice_pays(pay,tabpays,*nbpays);
+        nump = indice_pays(pays,tabpays,*nbpays);
         printf("%d\n",nump);
         if(nume > *nbepreuve) // si l'epreuve n'existe pas (chof indice epreuve / indice pays bah tzid tafham)
         {
@@ -125,17 +131,17 @@ int main()
     case 3:  //afficher les noms de tous les athlethes d'un pays donne 
         printf("  ## Affichage de tous les athlethes d'un pays donnes  ##\n");
         printf("> Entrez le nom de pay -->  \n");
-        fgets(pay,255,stdin);
-        listathpays(pay,tabpays,*nbpays,tabepreuve,*nbepreuve,tabjo);
+        fgets(pays,255,stdin);
+        listathpays(pays,tabpays,*nbpays,tabepreuve,*nbepreuve,tabjo);
         printf("===================================================\n");
         printf("\n");
         break;
     case 4: //supprimer pay
         printf("  ## Suppression d'une pay ##\n");
         printf("> Entrez le nom de pay -->\n");
-        fgets(pay,255,stdin);
-        if(verif_pays(pay,tabpays,*nbpays)){
-            suppays(pay,tabjo,tabpays,nbpays,nbepreuve);
+        fgets(pays,255,stdin);
+        if(verif_pays(pays,tabpays,*nbpays)){
+            suppays(pays,tabjo,tabpays,nbpays,nbepreuve);
             printf("Ce pays a été supprimé\n");
             printf("=====================================================\n");
         }else{
@@ -148,11 +154,11 @@ int main()
         printf("> Entrez le nom d'athlethe -->  ");
         fgets(nom,25,stdin);
         printf("> Entrez le pay de ce athlethe -->  ");
-        fgets(pay,255,stdin);
+        fgets(pays,255,stdin);
         printf("> Entrez l'epreuve de ce athlethe  -->   ");
         fgets(epreuve,255,stdin);
         nume = indice_epreuve(epreuve,tabepreuve,*nbepreuve);
-        nump = indice_pays(pay,tabpays,*nbpays);
+        nump = indice_pays(pays,tabpays,*nbpays);
         if(nume > *nbepreuve){
             printf("Ce epreuve n'existe pas dans les jeux olympiques\n");
             printf("=====================================================\n");
@@ -173,13 +179,17 @@ int main()
         printf("\n\n");
     }
     printf("\n\n");
-    if(choie != 7){
+    if(choix != 7){
         printf("> Appuyez sur Enter pour affichier le menu\n");
         printf("\n");
         fgetc(stdin);
     }
-    } while (choie != 7);
+    } while (choix != 7);
     printf("> Appuyez sur Enter pour quitter le programme\n");
+    */ 
+    ptr g = create(tabnom) ; 
+    afficher(g);
+   
     fgetc(stdin);    
    return 0;
 }
@@ -211,21 +221,21 @@ void aff_nom (ptr p , string n  )
 }
 
 //modifite fiha chwy
-ptr create()
+ptr create(string tabnom[50])
 {
-    FILE* fichier;
-    fichier = fopen("noms","r");// fichier 'noms' nhoto fih les noms li nehtajouhm
+    
     ptr tete,tmp,nouv ;
-    int n ;
+    int n,m ;
     string x,y ;
     n = rand() % 11 ;
+    m = rand() % 40 ; 
     tete = NULL ;
     for (int i=0 ; i< n ; i++ )
     {
         nouv = malloc(sizeof(athlethe));
         nouv->suiv =NULL ;
-        fgets(y,25,fichier);
-        strcpy(nouv->nom, y);
+        strcpy(nouv->nom, tabnom[m]);
+        m++ ; 
         if ( tete==NULL)
         {
             tete = nouv ;
@@ -238,7 +248,7 @@ ptr create()
             nouv = NULL;
         }
     }
-    fclose(fichier);
+  
     return tete ;
 }
 
@@ -266,6 +276,15 @@ int longeur(ptr p)
         tmp = tmp->suiv ;
     }
     return cpt ;
+}
+
+void tab_nom(string tabnom[50])
+{
+    FILE *f = fopen("noms","r") ; 
+    for ( int i =0 ; i < 50 ; i++)
+    {
+        fgets(tabnom[i],25,f);
+    }
 }
 
 //hadi fonction tconverti ay string l lowercase
@@ -315,11 +334,11 @@ void creer_tabepreuve(char tabepreuve[maxepreuve][255])
 }
 //1 er procedure creer tabjo
 
-void creer_tabjo(ptr tabjo[maxepreuve][maxpays])
+void creer_tabjo(ptr tabjo[maxepreuve][maxpays],string tabnom[50])
 {
     for(int i=0;i< maxepreuve;i++){
         for(int j=0;j<maxpays;j++){
-            tabjo[i][j] = create();
+            tabjo[i][j] = create(tabnom);
         }
     }
 }
