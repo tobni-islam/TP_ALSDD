@@ -92,9 +92,9 @@ int main()
     creer_tabjo(tabjo,tabnom);
    
     // Menu principale
-    printf("##########    Bienvenue dans cette fucking program qui permet d'organiser les inscription des jeux olympiques  #########\n");
+    printf("##########    Bienvenue dans ce programme qui permet d'organiser les inscriptions des jeux olympiques  #########\n");
     int choix;
-    /*
+    
     do
     {
         choix = menu();
@@ -108,11 +108,11 @@ int main()
         break;
     case 2: // insertion d'un athlethe
         printf("  ## Insertion d'un athlethe ##\n");
-        printf("> Entrez le nom d'athlethe -->  \n");
+        printf("> Entrez le nom de l'athlethe -->  \n");
         fgets(nom,25,stdin);
-        printf("> Entrez le nom d'epreuve --> \n");
+        printf("> Entrez le nom de l'epreuve --> \n");
         fgets(epreuve,255,stdin);
-        printf("> Entrez le nom de pay -->  \n");
+        printf("> Entrez le nom du pays -->  \n");
         fgets(pays,255,stdin);
         nume = indice_epreuve(epreuve,tabepreuve,*nbepreuve);
         printf("%d\n",nume);
@@ -120,25 +120,25 @@ int main()
         printf("%d\n",nump);
         if(nume > *nbepreuve) // si l'epreuve n'existe pas (chof indice epreuve / indice pays bah tzid tafham)
         {
-            printf("Ce epreuve n'existe pas dans les jeux olympique\n");
+            printf("Cet epreuve n'existe pas dans les jeux olympique\n");
         }else if(nump > *nbpays) // si le pay n'existe pas
         {
-            printf("Ce pay n'existe pas dans les jeux olympiques\n");
+            printf("Ce pay n'existe pas ou ne participe pas dans les jeux olympiques\n");
         }else{
             inserath("mokdad",nump,nume,tabjo);
         }    
         break;
     case 3:  //afficher les noms de tous les athlethes d'un pays donne 
-        printf("  ## Affichage de tous les athlethes d'un pays donnes  ##\n");
-        printf("> Entrez le nom de pay -->  \n");
+        printf("  ## Affichage de tous les athlethes d'un pays donné  ##\n");
+        printf("> Entrez le nom du pays -->  \n");
         fgets(pays,255,stdin);
         listathpays(pays,tabpays,*nbpays,tabepreuve,*nbepreuve,tabjo);
         printf("===================================================\n");
         printf("\n");
         break;
     case 4: //supprimer pay
-        printf("  ## Suppression d'une pay ##\n");
-        printf("> Entrez le nom de pay -->\n");
+        printf("  ## Suppression d'une pays ##\n");
+        printf("> Entrez le nom du pays -->\n");
         fgets(pays,255,stdin);
         if(verif_pays(pays,tabpays,*nbpays)){
             suppays(pays,tabjo,tabpays,nbpays,nbepreuve);
@@ -151,19 +151,19 @@ int main()
         break;
     case 5:// supprimer athlethe
         printf("  ## Supression d'un athlethe ##\n");
-        printf("> Entrez le nom d'athlethe -->  ");
+        printf("> Entrez le nom de l'athlethe -->  ");
         fgets(nom,25,stdin);
-        printf("> Entrez le pay de ce athlethe -->  ");
+        printf("> Entrez le pays de cet athlethe -->  ");
         fgets(pays,255,stdin);
-        printf("> Entrez l'epreuve de ce athlethe  -->   ");
+        printf("> Entrez l'epreuve de cet athlethe  -->   ");
         fgets(epreuve,255,stdin);
         nume = indice_epreuve(epreuve,tabepreuve,*nbepreuve);
         nump = indice_pays(pays,tabpays,*nbpays);
         if(nume > *nbepreuve){
-            printf("Ce epreuve n'existe pas dans les jeux olympiques\n");
+            printf("Cette epreuve n'existe pas dans les jeux olympiques\n");
             printf("=====================================================\n");
         }else if(nump > *nbpays){
-            printf("Ce pay n'existe pas dans les jeux olympiques\n");
+            printf("Ce pays n'existe pas dans les jeux olympiques\n");
             printf("=====================================================\n");
         }else{
             supath("mokdad\n",nump,nume,tabjo);
@@ -186,10 +186,6 @@ int main()
     }
     } while (choix != 7);
     printf("> Appuyez sur Enter pour quitter le programme\n");
-    */ 
-    ptr g = create(tabnom) ; 
-    afficher(g);
-   
     fgetc(stdin);    
    return 0;
 }
@@ -370,11 +366,11 @@ void inserath(string nomath , int nump ,int nume , ptr tabjo[maxepreuve][maxpays
         aff_nom(ath,nomath); 
         aff_adr(ath,tabjo[nume][nump]);// aff_adr m3a la tete de liste
         tabjo[nume][nump] = ath;  // la nouveau tete est le nouveau maillon.
-        printf("la nouvelles liste d'athlethe -->\n");
+        printf("la nouvelle liste d'athlethes  -->\n");
         afficher(tabjo[nume][nump]);
     }else if (longeur(tabjo[nume][nump]) == 10)
     {
-        printf("Il y a déjà 10 athlètes inscrits, vous ne pouvez pas inserer un autre athlète!\n");
+        printf("Il y a déjà 10 athlètes inscrits, vous ne pouvez plus inserer un autre athlète!\n");
     }else{
         printf("il y a deja un athlethe inscrit avec ce nom.\n");
     }
@@ -471,7 +467,7 @@ void listathpays(char pays[255] , char tabpays[maxpays][255] ,int nbpays, char t
    if ( trouv == 0 ) printf(" ce pays n'aucun concurrent \n")  ; // kayn f tabpays bsah m3ndoch athlethe
    }
     else{
-        printf("Ce pays n'existe pas dans les jeux olympiques\n") ; // l ism li dkhlto ghalt
+        printf("Ce pays n'existe pas ou ne pqrticipe pas dans les jeux olympiques\n") ; // l ism li dkhlto ghalt
         printf("\n");
     } 
 }
@@ -503,7 +499,7 @@ void listjo(ptr tabjo[maxepreuve][maxpays],char tabpays[maxpays][255],int nbpays
                 printf("%s",tabpays[j]);
                 printf("--------------------------\n");
                 if(longeur(tabjo[i][j]) == 0){
-                    printf("Ce pay n'a aucun athlethe en l'epreuve %s.\n",tabepreuve[j]);
+                    printf("Ce pays n'a aucun athlethe dans cette epreuve %s.\n",tabepreuve[j]);
                 }else{
                     afficher(tabjo[i][j]);
                 }
@@ -548,10 +544,10 @@ void supath (string nomath, int nump,int nume, ptr tabjo[maxepreuve][maxpays])
             p = suivant(p);
         }
         if (p == NULL) {
-            printf("Ce athlethe n'existe pas.\n");
+            printf("Cet athlethe n'existe pas.\n");
         } else {
             prec->suiv = p->suiv ;
-            printf("Ce athlethe a ete supprime\n");
+            printf("Cet athlethe a ete supprime\n");
         }
     }
     liberer(p);
@@ -582,22 +578,22 @@ int menu(){
     printf("========================================================================\n");
     printf("#1. Affichier tous les athlethes de tous les epreuves et les pays\n");
     printf("#2. Inserer une athlethe\n");
-    printf("#3. Afficher les noms de tous les athlethes d'un pays donne\n");
+    printf("#3. Afficher les noms de tous les athlethes d'un pays donné\n");
     printf("#4. Supprimer une pays a cause des raisons politiques\n");
-    printf("#5. qui permet de supprimer un athlète disqualifié ou blesse\n");
-    printf("#6. supprime toutes les épreuves pour lesquelles aucune inscription n' a étéenregistrée.\n");
+    printf("#5. Supprimer un athlète disqualifié ou blessé\n");
+    printf("#6. supprimer toutes les épreuves pour lesquelles aucune inscription n'a été enregistrée.\n");
     printf("#7. Quitter le programme\n");
     printf("========================================================================\n");
-    int choie;
+    int choix;
     do
     {
-        printf("Entrez votre choie -->  ");
-        scanf("%d",&choie);
-        if((choie < 1) || (choie > 7)){
-            printf("Error! Vous devez entrer un nombre entre 1 et 6 selon l' operation, reentrez le choie SVP\n");
+        printf("Entrez votre choix -->  ");
+        scanf("%d",&choix);
+        if((choix < 1) || (choix > 7)){
+            printf("Erreur! Vous devez entrer un nombre entre 1 et 6 selon l' operation, reentrez le choie SVP\n");
             printf("\n");
         }
-    } while ((choie < 1) || (choie > 7));
+    } while ((choix < 1) || (choix > 7));
     printf("==========================================================================\n");
-    return choie;
+    return choix;
 }
