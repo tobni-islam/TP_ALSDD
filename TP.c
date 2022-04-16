@@ -3,10 +3,10 @@
 #include <string.h>
 #include <time.h>
 #include <ctype.h>
+#include <unistd.h>
 #include "conio2.h"
-
 // #######################    Partie declaration    ########################### //
-typedef char  string[25]  ;
+typedef char  string[25]  ; // type de chaine de caractere
 
 typedef struct athlethe
 {
@@ -14,7 +14,7 @@ typedef struct athlethe
     struct athlethe *suiv ;
 }athlethe ;
 
-typedef athlethe  * ptr ; // nouveau type pour les pointeures ptr khirmn point
+typedef athlethe  * ptr ; // nouveau type pour les pointeures
 
 const unsigned MAX = 10;
 
@@ -28,28 +28,39 @@ ptr suivant(ptr g ) ;
 void liberer(ptr p );
 void aff_adr(ptr p , ptr q);
 void aff_nom (ptr p , string n  );
-ptr create(string tabnom[50]);
+ptr create(string tabnom[150]);
 void afficher(ptr p);
 int longeur(ptr p);
 ptr liberer_liste(ptr tete);
 
-// ####   Procedure de TP1   #### //
-char *lower_case(char *str);
-void supp_blanc(char* s);
-void tab_nom(string tabnom[50]);
-void creer_tabpays(char tabpays[maxpays][255]);
-void creer_tabepreuve(char tabepreuve[maxepreuve][255]);
-// 1 er procedure
-void creer_tabjo(ptr tabjo[maxepreuve][maxpays],string tabnom[50]);
+// ####   Procedures de TP1   #### //
 
-int verif_ath(string nomath,int nump, int nume, ptr tabjo[maxepreuve][maxpays]);
-// 2 eme procedure
-void inserath(string nomath , int nump ,int nume , ptr tabjo[maxepreuve][maxpays] );
+char *lower_case(char *str);//pour ne pas confondre entre le majuscule et le miniscule
+
+void supp_blanc(char* s); // pour supprimer les blancs des textes entrees
+
+void creer_tabnom(string tabnom[150]); //creer le tableau des noms
+
+void creer_tabpays(char tabpays[maxpays][255]);//creer le tableau des pays
+
+void creer_tabepreuve(char tabepreuve[maxepreuve][255]); //creer le tableau des epreuves
+
+void creer_tabjo(ptr tabjo[maxepreuve][maxpays],string tabnom[50]); // 1ere procedure du tp
+
+int verif_ath(string nomath,int nump, int nume, ptr tabjo[maxepreuve][maxpays]); //verifier si l'athlethe existe dans le tabjo
+
+void inserath(string nomath , int nump ,int nume , ptr tabjo[maxepreuve][maxpays] );// inserer un athlethe
+
 // des fonctions importants
-int verif_pays (string pays , char tabpays[maxpays][255],int nbpays);
-int verif_epreuve (string epreuve , char tabepreuve[maxepreuve][255],int nbepreuve);
-int indice_pays(string pays ,char tabpays[maxpays][255],int nbpays);
-int indice_epreuve(string epreuve, char tabepreuve[maxepreuve][255],int nbepreuve);
+
+int verif_pays (string pays , char tabpays[maxpays][255],int nbpays); // verifier si le pays existe dans tabpays
+
+int verif_epreuve (string epreuve , char tabepreuve[maxepreuve][255],int nbepreuve); // verifier si l'epreuve exise dans tabepreuve
+
+int indice_pays(string pays ,char tabpays[maxpays][255],int nbpays); // retoutner le numero du pays dans tabpays
+
+int indice_epreuve(string epreuve, char tabepreuve[maxepreuve][255],int nbepreuve);// retoutner le numero de l'epreuve dans tabpays
+
 
 // 3 eme procedure
 void listathpays(string pays , char tabpays[maxpays][255] ,int nbpays, char tabepreuve [maxepreuve][255] ,int nbepreuve, ptr tabjo[maxepreuve][maxpays]);
@@ -65,8 +76,7 @@ void supath (string nomath, int nump,int nume, ptr tabjo[maxepreuve][maxpays]);
 void suplignesvides(ptr tabjo[maxepreuve][maxpays],int nbpays,int *nbepreuve,char tabepreuve[maxepreuve][255]);
 
 //   Menu principale
-int menu();
-int console () ;
+int console () ; // fonction qui affiche la console et retourne le choix de l'utilisateur
 
 
 
@@ -81,9 +91,9 @@ int main()
     int a = maxepreuve,b = maxpays;
     nbepreuve = &a;
     nbpays = &b;
-    char pay[255];
+    char pays[255];
     char epreuve[255];
-    string tabnom[50];
+    string tabnom[150];
     string nom;
     int nume,nump;
     //Creation de tabepreuve , tabpays, tabjo
@@ -92,128 +102,193 @@ int main()
     tab_nom(tabnom);
     creer_tabjo(tabjo,tabnom);
     // Menu principale
-    int choie ;
-    int z,choix ;
-
-    gotoxy(15,5);
+    int choix ;
 
 
-
+    gotoxy(15,5);// pour afficher la console au millieu
     do
     {
          clrscr();
-         choix=console();
+         choix=console();// le choix de l'utilisateur
+         textcolor(WHITE);
          switch (choix)
     {
-    case 1: // afficher kamel les athelethe ta3 kamel les epreuves w kamel les pays
+    case 1: //si l'utilisateur a choisi le premier choix
         clrscr();
-        printf("  ## afficher le contenu complet de la matrice tabjo  ##\n");
-        listjo(tabjo,tabpays,*nbpays,tabepreuve,*nbepreuve);
-        printf("=========================================================\n");
-        printf("\n\n");
-        getchar();
+       creer_tabepreuve(tabepreuve);
+    creer_tabpays(tabpays);
+    tab_nom(tabnom);
+    creer_tabjo(tabjo,tabnom);
+
+        gotoxy (35,3);
+        printf("Creation de la matrice tabjo est en cours\n");
+        gotoxy(35,5);
+        for(int i=0 ; i<3 ; i++)
+        {
+        sleep(1);
+        printf(".") ;
+        }
+        gotoxy(35,6);
+         for(int i=0 ; i<3 ; i++)
+        {
+        sleep(1);
+        printf(".") ;
+        }
+        gotoxy(35,7);
+         for(int i=0 ; i<3 ; i++)
+        {
+        sleep(1);
+        printf(".") ;
+        }
+        gotoxy(35,8);
+        printf("\n") ;
+        gotoxy(35,9);
+        printf("la matrice a ete cree avec succes \n");
+
+
         break;
     case 2:
         clrscr();// insertion d'un athlethe
-        printf("  ## Insertion d'un athlethe ##\n\n");
-        printf("> Entrez le nom d'athlethe -->  ");
-        getchar();
-        fgets(nom,25,stdin);
-        printf("> Entrez le nom d'epreuve --> ");
-        fgets(epreuve,255,stdin);
-        printf("> Entrez le nom de pay -->   ");
-        fgets(pay,255,stdin);
+        gotoxy(35,3);
+        printf("  Insertion d'un athlethe \n\n");
+        gotoxy(35,5);
+        printf("> Entrez le nom de l'athlethe -->  ");
+        fgets(nom,25,stdin); // lire le nom de l'athlethe
+        gotoxy(35,6);
+        printf("> Entrez le nom de l'epreuve --> ");
+        fgets(epreuve,255,stdin); // lire le nom de l'epreuve
+        gotoxy(35,7);
+        printf("> Entrez le nom du pays -->   ");
+        fgets(pays,255,stdin); //lire le nom du pays
         nume = indice_epreuve(epreuve,tabepreuve,*nbepreuve);
-        nump = indice_pays(pay,tabpays,*nbpays);
+        nump = indice_pays(pays,tabpays,*nbpays);
+
         printf("\n");
         if(nume > *nbepreuve) // si l'epreuve n'existe pas (chof indice epreuve / indice pays bah tzid tafham)
         {
-            printf("Ce epreuve n'existe pas dans les jeux olympique\n");
-        }else if(nump > *nbpays) // si le pay n'existe pas
+            gotoxy(35,9);
+            printf("Cet epreuve n'existe pas dans les jeux olympique\n");
+        }
+        else if(nump > *nbpays) // si le pays n'existe pas
         {
-            printf("Ce pay n'existe pas dans les jeux olympiques\n");
-        }else{
+            gotoxy(35,9);
+            printf("Ce pays n'existe pas dans les jeux olympiques\n");
+        }
+        else{
             printf("\n");
             inserath(nom,nump,nume,tabjo);
         }
         break;
     case 3:
         clrscr();  //afficher les noms de tous les athlethes d'un pays donne
-        printf("  ## Affichage de tous les athlethes d'un pays donnes  ##\n");
-        printf("> Entrez le nom de pay -->  ");
-        getchar();
-        fgets(pay,255,stdin);
-        listathpays(pay,tabpays,*nbpays,tabepreuve,*nbepreuve,tabjo);
+        gotoxy(35,5);
+        printf("  Affichage de tous les athlethes d'un pays donne \n");
+        gotoxy(35,6);
+        printf(" > Entrez le nom de pays -->  ");
+        fgets(pays,255,stdin);
+        gotoxy(35,8);
+        listathpays(pays,tabpays,*nbpays,tabepreuve,*nbepreuve,tabjo);
         printf("===================================================\n");
         printf("\n");
         break;
-    case 4:
-        clrscr(); //supprimer pay
-        printf("  ## Suppression d'une pay ##\n");
-        printf("> Entrez le nom de pay -->   ");
+    case 4 :
+        clrscr();
+        printf(" ==== afficher le contenu complet de la matrice tabjo  ====\n");
+        listjo(tabjo,tabpays,*nbpays,tabepreuve,*nbepreuve);
+        printf("=========================================================\n");
+        printf("\n\n");
         getchar();
-        fgets(pay,255,stdin);
-        if(verif_pays(pay,tabpays,*nbpays)){
-            suppays(pay,tabjo,tabpays,nbpays,nbepreuve);
-            printf("Ce pays a été supprimé\n");
-            printf("=====================================================\n");
-        }else{
-            printf("Ce pays n'existe pas dans les jeux olimpiques\n");
-            printf("===========================================================\n");
-        }
-        break;
+        break ;
     case 5:
-        clrscr();// supprimer athlethe
-        printf("  ## Supression d'un athlethe ##\n");
-        printf("> Entrez le nom d'athlethe -->  ");
-        getchar();
-        fgets(nom,25,stdin);
-        printf("> Entrez le pay de ce athlethe -->  ");
-        fgets(pay,255,stdin);
-        printf("> Entrez l'epreuve de ce athlethe  -->   ");
-        fgets(epreuve,255,stdin);
-        nume = indice_epreuve(epreuve,tabepreuve,*nbepreuve);
-        nump = indice_pays(pay,tabpays,*nbpays);
-        if(nume > *nbepreuve){
-            printf("Ce epreuve n'existe pas dans les jeux olympiques\n");
-            printf("=====================================================\n");
-        }else if(nump > *nbpays){
-            printf("Ce pay n'existe pas dans les jeux olympiques\n");
-            printf("=====================================================\n");
+        clrscr(); //supprimer pays
+        gotoxy(27,4);
+        printf("==================================================================\n");
+        gotoxy(35,6);
+        printf("   Suppression d'un pays \n");
+        gotoxy(35,8);
+        printf("> Entrez le nom du pays -->   ");
+        fgets(pays,255,stdin);
+        if(verif_pays(pays,tabpays,*nbpays)){
+            suppays(pays,tabjo,tabpays,nbpays,nbepreuve);
+            gotoxy(38,11);
+            printf("Ce pays a ete supprime avec succes \n");
+            gotoxy(27,13 );
+            printf("=================================================================\n");
         }else{
-            supath(nom,nump,nume,tabjo);
-            printf("=================================================\n");
+            gotoxy(38,11);
+            printf("Ce pays n'existe pas dans les jeux olympiques \n");
+            gotoxy(27,13 );
+            printf("==================================================================\n");
         }
         break;
     case 6:
-        clrscr(); // supprime toutes les épreuves pour lesquelles aucune inscription n’a été enregistrée.
+        gotoxy(27,5);
+        printf("==================================================================\n");
+        clrscr();// supprimer athlethe
+        gotoxy(35,7);
+        printf("   Supression d'un athlethe \n");
+        gotoxy(35,9);
+        printf("> Entrez le pays de cet athlethe -->  ");
+
+        fgets(pays,255,stdin);
+
+        gotoxy(35,10);
+        printf("> Entrez l'epreuve de cet athlethe  -->   ");
+
+        fgets(epreuve,255,stdin);
+
+        gotoxy(35,11);
+        printf("> Entrez le nom de l'athlethe -->  ");
+        fgets(nom,25,stdin);
+
+        nume = indice_epreuve(epreuve,tabepreuve,*nbepreuve);
+        nump = indice_pays(pays,tabpays,*nbpays);
+        if(nume > *nbepreuve){
+            gotoxy(35,13);
+            printf("Cet epreuve n'existe pas dans les jeux olympiques\n");
+            gotoxy(27,14);
+            printf("==================================================================\n");
+        }else if(nump > *nbpays){
+            gotoxy(35,13);
+            printf("Ce pays n'existe pas dans les jeux olympiques\n");
+            gotoxy(27,14);
+            printf("==================================================================\n");
+        }
+        else{
+            gotoxy(27,13);
+            supath(nom,nump,nume,tabjo);
+            gotoxy(27,wherey());
+            printf("==================================================================\n");
+        }
+        break;
+    case 7:
+        clrscr(); // supprimer toutes les épreuves pour lesquelles aucune inscription n’a été enregistrée.
         printf("  ## Suppression de toutes les epreuves pour lesquelles aucune inscription n'a ete enregistree ##\n");
         suplignesvides(tabjo,*nbpays,nbepreuve,tabepreuve);
-        printf("\ntoutes les epreuves pour lesquelles aucune inscription n'a ete enregistrer ont ete supprime\n");
+        printf("\ntoutes les epreuves pour lesquelles aucune inscription n'a ete enregistree ont ete supprimees \n");
         printf("==================================================================\n");
         getchar();
         break;
-    case 7:
+    case 8:
         clrscr(); //Quitter
         printf("   ##  Quitter le programme  ##\n");
         break;
     }
     printf("\n\n");
-    if(choie != 7){
-        printf("> Appuyez sur Enter pour affichier le menu\n\n");
+    if(choix != 8){
         getchar();
     }
-    } while (choix != 7);
+    } while (choix != 8);
    return 0;
 }
 
-void allouer (ptr p ) //mat5dmch biha mahich mliha
+void allouer (ptr p )
 {
     p = malloc(sizeof(athlethe));
     p->suiv =NULL ;
 }
 
-ptr suivant(ptr g ) // hadi kifkif akhtik mnha fiha probleme hiya w allouer brk
+ptr suivant(ptr g )
 {
     return ( g->suiv ) ;
 }
@@ -233,7 +308,6 @@ void aff_nom (ptr p , string n  )
     strcpy(p->nom,n) ;
 }
 
-//modifite fiha chwy
 ptr create(string tabnom[50])
 {
 
@@ -264,15 +338,16 @@ ptr create(string tabnom[50])
 }
 
 
-void afficher(ptr p)
+void afficher(ptr p) // afficher la liste des athlethes
 {
-    ptr tmp ;
+    ptr tmp ;//pointeur tomporaire
     tmp = p ;
     while ( tmp != NULL)
     {
+        gotoxy(35,wherey());
         printf("   --> %s ",tmp->nom );
         tmp = tmp -> suiv ;
-    }
+          }
     printf("\n") ;
 }
 
@@ -288,7 +363,7 @@ int longeur(ptr p)
     return cpt ;
 }
 
-// hadi fonction tliberer tous les element ta3 la liste w traje3let 'NULL'
+
 ptr liberer_liste(ptr tete){
     if(tete != NULL){
         ptr proc,p;
@@ -306,7 +381,6 @@ ptr liberer_liste(ptr tete){
     return tete;
 }
 
-//hadi fonction tconverti ay string l lowercase
 char *lower_case(char *str){
     for(int i= 0;str[i];i++){
         str[i] = tolower(str[i]);
@@ -314,7 +388,6 @@ char *lower_case(char *str){
     return str;
 }
 
-// hadi procedure tnahhilk les espaces men ay string    nhtajoha yaser
 void supp_blanc(char* s) {
     char* d = s;
     do {
@@ -326,11 +399,11 @@ void supp_blanc(char* s) {
 
 
 //construire tableau tabnom
-void tab_nom(string tabnom[50])
+void tab_nom(string tabnom[150])
 {
     FILE *f = fopen("noms","r") ;
     string nom;
-    for ( int i =0 ; i < 50 ; i++)
+    for ( int i =0 ; i < 150 ; i++)
     {
         fgets(nom,25,f);
         strcpy(nom,lower_case(nom));
@@ -366,9 +439,9 @@ void creer_tabepreuve(char tabepreuve[maxepreuve][255])
     }
     fclose(fichier);
 }
-//1 er procedure creer tabjo
+//1 ere procedure creer tabjo
 
-void creer_tabjo(ptr tabjo[maxepreuve][maxpays],string tabnom[50])
+void creer_tabjo(ptr tabjo[maxepreuve][maxpays],string tabnom[150])
 {
     for(int i=0;i< maxepreuve;i++){
         for(int j=0;j<maxpays;j++){
@@ -378,7 +451,7 @@ void creer_tabjo(ptr tabjo[maxepreuve][maxpays],string tabnom[50])
 }
 
 
-//hadi fonction tverifier ida nom ath yexister f liste (True) w la non (False)
+
 int verif_ath(string nomath,int nump, int nume, ptr tabjo[maxepreuve][maxpays]){
     int b = 0;
     ptr tmp = tabjo[nume][nump];
@@ -394,7 +467,7 @@ int verif_ath(string nomath,int nump, int nume, ptr tabjo[maxepreuve][maxpays]){
     return b;
 
 }
-// 2eme procedure (modifier)
+// 2eme procedure
 
 void inserath(string nomath , int nump ,int nume , ptr tabjo[maxepreuve][maxpays] )
 {
@@ -407,25 +480,29 @@ void inserath(string nomath , int nump ,int nume , ptr tabjo[maxepreuve][maxpays
         aff_nom(ath,nomath);
         aff_adr(ath,tabjo[nume][nump]);// aff_adr m3a la tete de liste
         tabjo[nume][nump] = ath;  // la nouveau tete est le nouveau maillon.
-        printf("la nouvelle list des athlethes \n");
+        gotoxy(35,9);
+        printf("la nouvelle liste des athlethes \n");
+        gotoxy(35,11);
         afficher(tabjo[nume][nump]);
     }else if (longeur(tabjo[nume][nump]) == 10)
     {
-        printf("Il y a déjà 10 athlètes inscrits, vous ne pouvez pas inserer un autre athlète!\n");
+        gotoxy(35,9) ;
+        printf("Il y a deje 10 athletes inscrits, vous ne pouvez pas inserer un autre athlete!\n");
         printf("\n");
     }else{
+        gotoxy(35,9);
         printf("il y a deja un athlethe inscrit avec ce nom.\n");
         printf("\n");
     }
 }
 
-int verif_pays (char pays[255] , char tabpays[maxpays][255],int nbpays) // tgolk ida kayn had l pays wla non
+int verif_pays (char pays[255] , char tabpays[maxpays][255],int nbpays)
 {
-    int trouv =0;
+    int trouv = 0;
     char str[255];
     supp_blanc(pays);
     strcpy(pays,lower_case(pays));
-    for (int i = 0 ; i< nbpays; i++)
+    for (int i = 0 ; i < nbpays; i++)
     {
         strcpy(str,tabpays[i]);
         supp_blanc(str);
@@ -438,7 +515,7 @@ int verif_pays (char pays[255] , char tabpays[maxpays][255],int nbpays) // tgolk
     return trouv;
 }
 
-int verif_epreuve (char epreuve[255] , char tabepreuve[maxepreuve][255],int nbepreuve) // tgolk ida kayn l'epreuve li d5ltha wla non  wla non
+int verif_epreuve (char epreuve[255] , char tabepreuve[maxepreuve][255],int nbepreuve)
 {
     int trouv = 0 ;
     char str[255];
@@ -459,7 +536,7 @@ int verif_epreuve (char epreuve[255] , char tabepreuve[maxepreuve][255],int nbep
 
 
 
-int indice_pays(char pays[255] ,char tabpays[maxpays][255],int nbpays) // tmdlha ism bled tmdlk numero te3o
+int indice_pays(char pays[255] ,char tabpays[maxpays][255],int nbpays)
 {
         char str[255];
         strcpy(pays,lower_case(pays));
@@ -474,12 +551,14 @@ int indice_pays(char pays[255] ,char tabpays[maxpays][255],int nbpays) // tmdlha
         return (maxpays +1);
 }
 
-int indice_epreuve(char epreuve[255], char tabepreuve[maxepreuve][255],int nbepreuve) // wla epreuve nfs lkhdma galna t9dro tzido parametre
+int indice_epreuve(char epreuve[255], char tabepreuve[maxepreuve][255],int nbepreuve)
 {
-        char str[255];
+
+
+    char str[255];
         strcpy(epreuve,lower_case(epreuve));
         supp_blanc(epreuve);
-        for (int i = 0; i < nbepreuve; i++)   // mlgitch kifah ndkhl tabpays psa mahoch parametre
+        for (int i = 0; i < nbepreuve; i++)
         {
             strcpy(str,tabepreuve[i]);
             supp_blanc(str);
@@ -494,23 +573,28 @@ int indice_epreuve(char epreuve[255], char tabepreuve[maxepreuve][255],int nbepr
 
 void listathpays(char pays[255] , char tabpays[maxpays][255] ,int nbpays, char tabepreuve [maxepreuve][255] ,int nbepreuve, ptr tabjo[maxepreuve][maxpays])
 {
-    int trouv = 0 ;
+    int trou = 0 ;
     if (verif_pays(pays,tabpays,nbpays))
     {
-   int p =  indice_pays(pays,tabpays,nbpays); // on stocke l 'indice te3 lpays f p
+   int p =  indice_pays(pays,tabpays,nbpays); // on stocke l 'indice du pays dans p
    for (int i=0 ; i<nbepreuve ; i ++)
    {
        if (tabjo[i][p] != NULL) {
+            gotoxy(20,wherey()); // pour l'affichage
            printf("%s", tabepreuve[i]); //afficher l'epreuve
+           gotoxy(20,wherey());
            printf("=============================================\n");
+                      gotoxy(20,wherey());
+
            printf("les athlethes sont\n");
            afficher(tabjo[i][p]);// afficher la liste
-           trouv = 1 ; // m3naha lgina au moins epreuve wahda
+           trou = 1 ; // on a trouve au moins une seule  epreuve
        }
    }
-   if ( trouv == 0 ) printf(" ce pays n'aucun concurrent \n")  ; // kayn f tabpays bsah m3ndoch athlethe
+   if ( trou == 0 ) printf(" ce pays n'aucun concurrent \n")  ; // le pays existe mais il n'a aucun athlethe inscrit dans cette epreuve
    }
     else{
+            printf("%d",(verif_pays(pays,tabpays,nbpays))) ;
         printf("Ce pays n'existe pas dans les jeux olympiques\n") ; // l ism li dkhlto ghalt
         printf("\n");
     }
@@ -521,9 +605,9 @@ int sansath(int ne , ptr tabjo[maxepreuve][maxpays],int nbpays )
 {
     int np ;
     int trouv = 1;
-    for (np = 0 ; np <nbpays; np ++ )
+    for (np = 0 ; np <nbpays; np ++ ) // on parcoure les pays
     {
-        if (tabjo[ne][np] != NULL ){
+        if (tabjo[ne][np] != NULL ){ // si il n'y a aucun athlethe inscrit
             trouv = 0;
             return trouv;
         }
@@ -543,7 +627,7 @@ void listjo(ptr tabjo[maxepreuve][maxpays],char tabpays[maxpays][255],int nbpays
                 printf("%s",tabpays[j]);
                 printf("--------------------------\n");
                 if(longeur(tabjo[i][j]) == 0){
-                    printf("Ce pay n'a aucun athlethe en l'epreuve %s\n",tabepreuve[j]);
+                    printf("Ce pay n'a aucun athlethe dans l'epreuve %s\n",tabepreuve[j]);
                 }else{
                     afficher(tabjo[i][j]);
                 }
@@ -553,7 +637,7 @@ void listjo(ptr tabjo[maxepreuve][maxpays],char tabpays[maxpays][255],int nbpays
     }
 }
 
-//6eme procedure li tsuprimi
+//6eme procedure
 void suppays (char pays[255] , ptr tabjo[maxepreuve][maxpays] ,char tabpays[maxpays][255] ,int *nbpays,int *nbepreuve)
 {
     // nkhabi fih indice te3  l pays
@@ -583,8 +667,13 @@ void supath (string nomath, int nump,int nume, ptr tabjo[maxepreuve][maxpays])
     strcpy(nomath,lower_case(nomath));
     nomath[0] = toupper(nomath[0]);
     supp_blanc(nomath);
-    if (p->nom == nomath) {
+    if (!(strcmp(p->nom ,nomath))) {
         tabjo[nume][nump] = tabjo[nume][nump]->suiv;
+         printf("\Ce athlethe a ete supprime\n");
+;
+        printf("la nouvelle liste des athlethes \n");
+        afficher(tabjo[nume][nump]);
+
     }
     else {
         while ((p != NULL) && (strcmp(p->nom ,nomath)))
@@ -596,8 +685,9 @@ void supath (string nomath, int nump,int nume, ptr tabjo[maxepreuve][maxpays])
             printf("\nCe athlethe n'existe pas dans cette liste\n");
         } else {
             prec->suiv = p->suiv ;
-            printf("\nCe athlethe a ete supprime\n");
-        printf("la nouvelle list des athlethes \n");
+
+        printf("\Ce athlethe a ete supprime\n");
+        printf("la nouvelle liste des athlethes \n");
         afficher(tabjo[nume][nump]);
         }
     }
@@ -608,11 +698,11 @@ void supath (string nomath, int nump,int nume, ptr tabjo[maxepreuve][maxpays])
 //8eme procedure tsuppremer les epreuves li mafihom hta athelethe
 
 void suplignesvides(ptr tabjo[maxepreuve][maxpays],int nbpays,int *nbepreuve,char tabepreuve[maxepreuve][255]){
-    for(int ne=0;ne< *nbepreuve;ne++){
-        if(sansath(ne,tabjo,nbpays)){
+    for(int ne=0;ne< *nbepreuve;ne++){ // on parcoure la liste des epreuves
+        if(sansath(ne,tabjo,nbpays)){ // si cette epreuve n'a aucun athlethe inscrit on la supprime
             for(int i=ne;i< *nbepreuve;i++){
                 for(int j=0;j<nbpays;j++){
-                    tabjo[i][j] = tabjo[i+1][j];
+                    tabjo[i][j] = tabjo[i+1][j]; // on la remplace par l'epreuve suivante
                 }
             }
             for(int i= ne ;i< *nbepreuve;i++ ){
@@ -623,68 +713,74 @@ void suplignesvides(ptr tabjo[maxepreuve][maxpays],int nbpays,int *nbepreuve,cha
     }
 }
 
-// Menu principale
-int menu(){
-    printf("Choisissez dans la liste suivante l'opération que vous souhaitez effectuer\n");
-    printf("========================================================================\n");
-    printf("#1. Affichier tous les athlethes de tous les epreuves et les pays\n");
-    printf("#2. Inserer une athlethe\n");
-    printf("#3. Afficher les noms de tous les athlethes d'un pays donne\n");
-    printf("#4. Supprimer une pays a cause des raisons politiques\n");
-    printf("#5. supprimer un athlète disqualifié ou blesse\n");
-    printf("#6. supprime toutes les épreuves pour lesquelles aucune inscription n' a étéenregistrée.\n");
-    printf("#7. Quitter le programme\n");
-    printf("========================================================================\n");
-    int choix;
-    do
-    {
-        printf("Entrez votre choix  -->  ");
-        scanf("%d",&choix);
-        if((choix <1 ) || (choix > 7)){
-            printf("Vous devez entrer un entier entre 1 et 7\n");
-        }
-    } while ((choix < 1) ||(choix > 7));
-    printf("==========================================================================\n");
-    return choix;
-}
+
 void down(int x ,int y)
 {
 
-    gotoxy(x,y+1);
+    gotoxy(x,y+2);
 
 
 }
 
 void up(int x , int y )
 {
-     gotoxy(x,y-1);
+     gotoxy(x,y-2);
 
 
 }
 int console()
 {
- printf("Choisissez dans la liste suivante l'opération que vous souhaitez effectuer\n");
+  gotoxy(15,4) ;
+  textcolor (LIGHTBLUE );
+   printf("========================================================================================\n");
+   gotoxy(48,5);
+   textcolor(LIGHTRED);
+   printf("Welcome to Paris 2024\n");
     gotoxy(15,6);
-    printf("========================================================================\n");
+   textcolor(LIGHTBLUE);
+   printf("========================================================================================\n");
         gotoxy(15,7);
-        textbackground(GREEN) ;
-    printf("#1. Affichier tous les athlethes de tous les epreuves et les pays\n");
-        textbackground(BLACK) ;
+        printf("\n");
         gotoxy(15,8);
+        textbackground(LIGHTRED) ;
+        textcolor(WHITE);
+
+    printf("#1.Creer tabjo contenant les noms de tous les athletes de tous les pays dans toutes les epreuves\n");
+        textbackground(BLACK) ;
+     gotoxy(15,9) ;
+     printf("\n");
+     gotoxy(15,10);
     printf("#2. Inserer une athlethe\n");
-        gotoxy(15,9);
-    printf("#3. Afficher les noms de tous les athlethes d'un pays donne\n");
-        gotoxy(15,10);
-    printf("#4. Supprimer une pays a cause des raisons politiques\n");
-        gotoxy(15,11);
-    printf("#5. supprimer un athlète disqualifié ou blesse\n");
+    gotoxy(15,11);
+     printf("\n");
         gotoxy(15,12);
-    printf("#6. supprime toutes les epreuves pour lesquelles aucune inscription n' a ete enregistree.\n");
-        gotoxy(15,13);
-    printf("#7. Quitter le programme\n");
+    printf("#3. Afficher les noms de tous les athlethes d'un pays donne\n");
+    gotoxy(15,13);
+     printf("\n");
         gotoxy(15,14);
-    printf("========================================================================\n");
-        gotoxy(15,7);
+    printf("#4. Afficher le contenu complet de la matrice tabjo epreuve par epreuve\n");
+    gotoxy(15,15);
+     printf("\n");
+         gotoxy(15,16);
+    printf("#5. Supprimer un pays pour des raisons budgetaires ou politiques\n");
+    gotoxy(15,17);
+     printf("\n");
+        gotoxy(15,18);
+    printf("#6. Supprimer un athlethe disqualifie ou blesse\n");
+    gotoxy(15,19);
+     printf("\n");
+         gotoxy(15,20);
+    printf("#7. Supprimer toutes les epreuves pour lesquelles aucune inscription n'a ete enregistree\n");
+    gotoxy(15,21);
+     printf("\n");
+      gotoxy(15,22);
+    printf("#8. Quitter le programme \n");
+    gotoxy(15,23);
+     printf("\n");
+        gotoxy(15,24);
+        textcolor (LIGHTBLUE );
+        printf("========================================================================================\n");
+        gotoxy(15,8) ;
 
         while(1 )
         {
@@ -692,7 +788,7 @@ int console()
 int         z = getch() ;
         switch (y)
         {
-        case 7  :
+        case 8  :
             if ( z == 13)
             {
                 return 1 ;
@@ -701,59 +797,114 @@ int         z = getch() ;
             if (z == 0x50)
             {
          clrscr();
-         gotoxy(15,5);
-         printf("Choisissez dans la liste suivante l'opération que vous souhaitez effectuer\n");
-         gotoxy(15,6);
-         printf("========================================================================\n");
-         gotoxy(15,7);
-         printf("#1. Affichier tous les athlethes de tous les epreuves et les pays\n");
-         gotoxy(15,8);
-         textbackground(GREEN) ;
-         printf("#2. Inserer une athlethe\n");
-                  textbackground(BLACK) ;
-         gotoxy(15,9);
-         printf("#3. Afficher les noms de tous les athlethes d'un pays donne\n");
-         gotoxy(15,10);
-         printf("#4. Supprimer une pays a cause des raisons politiques\n");
-         gotoxy(15,11);
-         printf("#5. supprimer un athlète disqualifié ou blesse\n");
-         gotoxy(15,12);
-         printf("#6. supprime toutes les epreuves pour lesquelles aucune inscription n' a ete enregistree.\n");
-         gotoxy(15,13);
-         printf("#7. Quitter le programme\n");
-         gotoxy(15,14);
-         printf("========================================================================\n");
-         down(14,y);
+          gotoxy(15,4) ;
+          textcolor (LIGHTBLUE );
+   printf("========================================================================================\n");
+   gotoxy(48,5);
+   textcolor (LIGHTRED );
+   printf("Welcome to Paris 2024\n");
+    gotoxy(15,6);
+    textcolor (LIGHTBLUE );
+    printf("========================================================================================\n");
+        gotoxy(15,7);
+        printf("\n");
+        gotoxy(15,8);
+textcolor (WHITE );
+
+    printf("#1.Creer tabjo contenant les noms de tous les athletes de tous les pays dans toutes les epreuves\n");
+     gotoxy(15,9) ;
+     printf("\n");
+     gotoxy(15,10);
+     textbackground(LIGHTRED) ;
+    printf("#2. Inserer une athlethe\n");
+    textbackground(BLACK);
+    gotoxy(15,11);
+     printf("\n");
+        gotoxy(15,12);
+    printf("#3. Afficher les noms de tous les athlethes d'un pays donne\n");
+    gotoxy(15,13);
+     printf("\n");
+        gotoxy(15,14);
+    printf("#4. Afficher le contenu complet de la matrice tabjo epreuve par epreuve\n");
+    gotoxy(15,15);
+     printf("\n");
+         gotoxy(15,16);
+    printf("#5. Supprimer un pays pour des raisons budgetaires ou politiques\n");
+    gotoxy(15,17);
+     printf("\n");
+        gotoxy(15,18);
+    printf("#6. Supprimer un athlethe disqualifie ou blesse\n");
+    gotoxy(15,19);
+     printf("\n");
+         gotoxy(15,20);
+    printf("#7. Supprimer toutes les epreuves pour lesquelles aucune inscription n'a ete enregistree\n");
+    gotoxy(15,21);
+     printf("\n");
+      gotoxy(15,22);
+    printf("#8. Quitter le programme \n");
+    gotoxy(15,23);
+     printf("\n");
+        gotoxy(15,24);
+        textcolor (LIGHTBLUE );
+        printf("========================================================================================\n");
+        gotoxy(15,10);
             }
             else if ( z == 0x48)
             {
          clrscr();
-         gotoxy(15,5);
-         printf("Choisissez dans la liste suivante l'opération que vous souhaitez effectuer\n");
-         gotoxy(15,6);
-         printf("========================================================================\n");
-         gotoxy(15,7);
-         printf("#1. Affichier tous les athlethes de tous les epreuves et les pays\n");
-         gotoxy(15,8);
-         printf("#2. Inserer une athlethe\n");
-         gotoxy(15,9);
-         printf("#3. Afficher les noms de tous les athlethes d'un pays donne\n");
-         gotoxy(15,10);
-         printf("#4. Supprimer une pays a cause des raisons politiques\n");
-         gotoxy(15,11);
-         printf("#5. supprimer un athlète disqualifié ou blesse\n");
-         gotoxy(15,12);
-         printf("#6. supprime toutes les epreuves pour lesquelles aucune inscription n' a ete enregistree.\n");
-         gotoxy(15,13);
-         textbackground(GREEN) ;
-         printf("#7. Quitter le programme\n");
-         gotoxy(15,14);
-         textbackground(BLACK);
-         printf("========================================================================\n");
-         gotoxy(14,13);
+    gotoxy(15,4) ;
+    textcolor (LIGHTBLUE );
+   printf("========================================================================================\n");
+   gotoxy(48,5);
+   textcolor (LIGHTRED );
+   printf("Welcome to Paris 2024\n");
+    gotoxy(15,6);
+    textcolor (LIGHTBLUE );
+    printf("========================================================================================\n");
+        gotoxy(15,7);
+        printf("\n");
+        gotoxy(15,8);
+textcolor (WHITE );
+    printf("#1.Creer tabjo contenant les noms de tous les athletes de tous les pays dans toutes les epreuves\n");
+     gotoxy(15,9) ;
+     printf("\n");
+     gotoxy(15,10);
+    printf("#2. Inserer une athlethe\n");
+    gotoxy(15,11);
+     printf("\n");
+        gotoxy(15,12);
+    printf("#3. Afficher les noms de tous les athlethes d'un pays donne\n");
+    gotoxy(15,13);
+     printf("\n");
+        gotoxy(15,14);
+    printf("#4. Afficher le contenu complet de la matrice tabjo epreuve par epreuve\n");
+    gotoxy(15,15);
+     printf("\n");
+         gotoxy(15,16);
+    printf("#5. Supprimer un pays pour des raisons budgetaires ou politiques\n");
+    gotoxy(15,17);
+     printf("\n");
+        gotoxy(15,18);
+    printf("#6. Supprimer un athlethe disqualifie ou blesse\n");
+    gotoxy(15,19);
+     printf("\n");
+         gotoxy(15,20);
+    printf("#7. Supprimer toutes les epreuves pour lesquelles aucune inscription n'a ete enregistree\n");
+    gotoxy(15,21);
+     printf("\n");
+      gotoxy(15,22);
+      textbackground(LIGHTRED);
+    printf("#8. Quitter le programme \n");
+    textbackground(BLACK) ;
+    gotoxy(15,23);
+     printf("\n");
+        gotoxy(15,24);
+        textcolor (LIGHTBLUE );
+        printf("========================================================================================\n");
+         gotoxy(14,22);
             }
             break ;
-        case 8 :
+        case 10 :
             if ( z == 13 )
             {
                 return 2 ;
@@ -761,62 +912,114 @@ int         z = getch() ;
             }
                if (z == 0x50)
             {
-         clrscr();
-         gotoxy(15,5);
-         printf("Choisissez dans la liste suivante l'opération que vous souhaitez effectuer\n");
-         gotoxy(15,6);
-         printf("========================================================================\n");
-         gotoxy(15,7);
-         printf("#1. Affichier tous les athlethes de tous les epreuves et les pays\n");
-         gotoxy(15,8);
-         printf("#2. Inserer une athlethe\n");
-         textbackground(GREEN) ;
-         gotoxy(15,9);
-         printf("#3. Afficher les noms de tous les athlethes d'un pays donne\n");
-         textbackground(BLACK) ;
-         gotoxy(15,10);
-         printf("#4. Supprimer une pays a cause des raisons politiques\n");
-         gotoxy(15,11);
-         printf("#5. supprimer un athlète disqualifié ou blesse\n");
-         gotoxy(15,12);
-         printf("#6. supprime toutes les epreuves pour lesquelles aucune inscription n' a ete enregistree.\n");
-         gotoxy(15,13);
-         printf("#7. Quitter le programme\n");
-         gotoxy(15,14);
-         printf("========================================================================\n");
+        gotoxy(15,4) ;
+        textcolor (LIGHTBLUE );
+   printf("========================================================================================\n");
+   gotoxy(48,5);
+   textcolor (LIGHTRED );
+   printf("Welcome to Paris 2024\n");
+    gotoxy(15,6);
+    textcolor (LIGHTBLUE );
+    printf("========================================================================================\n");
+        gotoxy(15,7);
+        printf("\n");
+        gotoxy(15,8);
+        textcolor (WHITE );
+    printf("#1.Creer tabjo contenant les noms de tous les athletes de tous les pays dans toutes les epreuves\n");
+     gotoxy(15,9) ;
+     printf("\n");
+     gotoxy(15,10);
+    printf("#2. Inserer une athlethe\n");
+    gotoxy(15,11);
+     printf("\n");
+        gotoxy(15,12);
+        textbackground(LIGHTRED) ;
+    printf("#3. Afficher les noms de tous les athlethes d'un pays donne\n");
+    gotoxy(15,13);
+     printf("\n");
+        gotoxy(15,14);
+        textbackground(BLACK);
+    printf("#4. Afficher le contenu complet de la matrice tabjo epreuve par epreuve\n");
+    gotoxy(15,15);
+     printf("\n");
+         gotoxy(15,16);
+    printf("#5. Supprimer un pays pour des raisons budgetaires ou politiques\n");
+    gotoxy(15,17);
+     printf("\n");
+        gotoxy(15,18);
+    printf("#6. Supprimer un athlethe disqualifie ou blesse\n");
+    gotoxy(15,19);
+     printf("\n");
+         gotoxy(15,20);
+    printf("#7. Supprimer toutes les epreuves pour lesquelles aucune inscription n'a ete enregistree\n");
+    gotoxy(15,21);
+     printf("\n");
+      gotoxy(15,22);
+    printf("#8. Quitter le programme \n");
+    gotoxy(15,23);
+     printf("\n");
+        gotoxy(15,24);
+        textcolor (LIGHTBLUE );
+        printf("========================================================================================\n");
          down(14,y);
             }
             else if ( z == 0x48)
             {
          clrscr();
-         gotoxy(15,5);
-         printf("Choisissez dans la liste suivante l'opération que vous souhaitez effectuer\n");
-         gotoxy(15,6);
-         printf("========================================================================\n");
-         gotoxy(15,7);
-                 textbackground(GREEN) ;
+        gotoxy(15,4) ;
+        textcolor (LIGHTBLUE );
+   printf("========================================================================================\n");
+   gotoxy(48,5);
+   textcolor (LIGHTRED );
+   printf("Welcome to Paris 2024\n");
+    gotoxy(15,6);
+    textcolor (LIGHTBLUE );
+    printf("========================================================================================\n");
+        gotoxy(15,7);
+        printf("\n");
+        gotoxy(15,8);
+        textcolor (WHITE );
+        textbackground(LIGHTRED) ;
 
-         printf("#1. Affichier tous les athlethes de tous les epreuves et les pays\n");
-         gotoxy(15,8);
-                 textbackground(BLACK);
-
-         printf("#2. Inserer une athlethe\n");
-         gotoxy(15,9);
-         printf("#3. Afficher les noms de tous les athlethes d'un pays donne\n");
-         gotoxy(15,10);
-         printf("#4. Supprimer une pays a cause des raisons politiques\n");
-         gotoxy(15,11);
-         printf("#5. supprimer un athlète disqualifié ou blesse\n");
-         gotoxy(15,12);
-         printf("#6. supprime toutes les epreuves pour lesquelles aucune inscription n' a ete enregistree.\n");
-         gotoxy(15,13);
-         printf("#7. Quitter le programme\n");
-         gotoxy(15,14);
-         printf("========================================================================\n");
+    printf("#1.Creer tabjo contenant les noms de tous les athletes de tous les pays dans toutes les epreuves\n");
+        textbackground(BLACK) ;
+     gotoxy(15,9) ;
+     printf("\n");
+     gotoxy(15,10);
+    printf("#2. Inserer une athlethe\n");
+    gotoxy(15,11);
+     printf("\n");
+        gotoxy(15,12);
+    printf("#3. Afficher les noms de tous les athlethes d'un pays donne\n");
+    gotoxy(15,13);
+     printf("\n");
+        gotoxy(15,14);
+    printf("#4. Afficher le contenu complet de la matrice tabjo epreuve par epreuve\n");
+    gotoxy(15,15);
+     printf("\n");
+         gotoxy(15,16);
+    printf("#5. Supprimer un pays pour des raisons budgetaires ou politiques\n");
+    gotoxy(15,17);
+     printf("\n");
+        gotoxy(15,18);
+    printf("#6. Supprimer un athlethe disqualifie ou blesse\n");
+    gotoxy(15,19);
+     printf("\n");
+         gotoxy(15,20);
+    printf("#7. Supprimer toutes les epreuves pour lesquelles aucune inscription n'a ete enregistree\n");
+    gotoxy(15,21);
+     printf("\n");
+      gotoxy(15,22);
+    printf("#8. Quitter le programme \n");
+    gotoxy(15,23);
+     printf("\n");
+        gotoxy(15,24);
+        textcolor (LIGHTBLUE );
+        printf("========================================================================================\n");
          up(14,y);
             }
             break ;
-        case 9 :
+        case 12 :
             if ( z == 13 )
             {
                  return 3 ;
@@ -825,66 +1028,119 @@ int         z = getch() ;
          if (z == 0x50)
             {
          clrscr();
-         gotoxy(15,5);
-         printf("Choisissez dans la liste suivante l'opération que vous souhaitez effectuer\n");
-         gotoxy(15,6);
-         printf("========================================================================\n");
-         gotoxy(15,7);
-         printf("#1. Affichier tous les athlethes de tous les epreuves et les pays\n");
-         gotoxy(15,8);
-         printf("#2. Inserer une athlethe\n");
+        gotoxy(15,4) ;
+        textcolor (LIGHTBLUE );
+   printf("========================================================================================\n");
+   gotoxy(48,5);
+   textcolor (LIGHTRED );
+   printf("Welcome to Paris 2024\n");
+    gotoxy(15,6);
+    textcolor (LIGHTBLUE );
+    printf("========================================================================================\n");
+        gotoxy(15,7);
+        printf("\n");
+        gotoxy(15,8);
+        textcolor (WHITE );
 
-         gotoxy(15,9);
-         printf("#3. Afficher les noms de tous les athlethes d'un pays donne\n");
-         gotoxy(15,10);
-                  textbackground(GREEN) ;
+    printf("#1.Creer tabjo contenant les noms de tous les athletes de tous les pays dans toutes les epreuves\n");
+     gotoxy(15,9) ;
+     printf("\n");
+     gotoxy(15,10);
+    printf("#2. Inserer une athlethe\n");
+    gotoxy(15,11);
+     printf("\n");
+        gotoxy(15,12);
 
-         printf("#4. Supprimer une pays a cause des raisons politiques\n");
-         gotoxy(15,11);
-                  textbackground(BLACK) ;
-
-         printf("#5. supprimer un athlète disqualifié ou blesse\n");
-         gotoxy(15,12);
-         printf("#6. supprime toutes les epreuves pour lesquelles aucune inscription n' a ete enregistree.\n");
-         gotoxy(15,13);
-         printf("#7. Quitter le programme\n");
-         gotoxy(15,14);
-         printf("========================================================================\n");
+    printf("#3. Afficher les noms de tous les athlethes d'un pays donne\n");
+    gotoxy(15,13);
+    textbackground(LIGHTRED);
+     printf("\n");
+        gotoxy(15,14);
+    printf("#4. Afficher le contenu complet de la matrice tabjo epreuve par epreuve\n");
+    gotoxy(15,15);
+     printf("\n");
+         gotoxy(15,16);
+         textbackground(BLACK) ;
+    printf("#5. Supprimer un pays pour des raisons budgetaires ou politiques\n");
+    gotoxy(15,17);
+     printf("\n");
+        gotoxy(15,18);
+    printf("#6. Supprimer un athlethe disqualifie ou blesse\n");
+    gotoxy(15,19);
+     printf("\n");
+         gotoxy(15,20);
+    printf("#7. Supprimer toutes les epreuves pour lesquelles aucune inscription n'a ete enregistree\n");
+    gotoxy(15,21);
+     printf("\n");
+      gotoxy(15,22);
+    printf("#8. Quitter le programme \n");
+    gotoxy(15,23);
+     printf("\n");
+        gotoxy(15,24);
+        textcolor (LIGHTBLUE );
+        printf("========================================================================================\n");
          down(14,y);
             }
             else if ( z == 0x48)
             {
          clrscr();
-         gotoxy(15,5);
-         printf("Choisissez dans la liste suivante l'opération que vous souhaitez effectuer\n");
-         gotoxy(15,6);
-         printf("========================================================================\n");
-         gotoxy(15,7);
+        gotoxy(15,4) ;
+        textcolor (LIGHTBLUE );
+   printf("========================================================================================\n");
+   gotoxy(48,5);
+   textcolor (LIGHTRED );
+   printf("Welcome to Paris 2024\n");
+    gotoxy(15,6);
+    textcolor (LIGHTBLUE );
+    printf("========================================================================================\n");
+        gotoxy(15,7);
+        printf("\n");
+        gotoxy(15,8);
+        textcolor (WHITE );
 
 
-         printf("#1. Affichier tous les athlethes de tous les epreuves et les pays\n");
-         gotoxy(15,8);
-          textbackground(GREEN) ;
+    printf("#1.Creer tabjo contenant les noms de tous les athletes de tous les pays dans toutes les epreuves\n");
 
-         printf("#2. Inserer une athlethe\n");
-         gotoxy(15,9);
-         textbackground(BLACK) ;
-         printf("#3. Afficher les noms de tous les athlethes d'un pays donne\n");
-         gotoxy(15,10);
-         printf("#4. Supprimer une pays a cause des raisons politiques\n");
-         gotoxy(15,11);
-         printf("#5. supprimer un athlète disqualifié ou blesse\n");
-         gotoxy(15,12);
-         printf("#6. supprime toutes les epreuves pour lesquelles aucune inscription n' a ete enregistree.\n");
-         gotoxy(15,13);
-         printf("#7. Quitter le programme\n");
-         gotoxy(15,14);
-         printf("========================================================================\n");
+     gotoxy(15,9) ;
+     printf("\n");
+     gotoxy(15,10);
+     textbackground(LIGHTRED) ;
+    printf("#2. Inserer une athlethe\n");
+    gotoxy(15,11);
+     printf("\n");
+        gotoxy(15,12);
+        textbackground(BLACK) ;
+    printf("#3. Afficher les noms de tous les athlethes d'un pays donne\n");
+    gotoxy(15,13);
+     printf("\n");
+        gotoxy(15,14);
+    printf("#4. Afficher le contenu complet de la matrice tabjo epreuve par epreuve\n");
+    gotoxy(15,15);
+     printf("\n");
+         gotoxy(15,16);
+    printf("#5. Supprimer un pays pour des raisons budgetaires ou politiques\n");
+    gotoxy(15,17);
+     printf("\n");
+        gotoxy(15,18);
+    printf("#6. Supprimer un athlethe disqualifie ou blesse\n");
+    gotoxy(15,19);
+     printf("\n");
+         gotoxy(15,20);
+    printf("#7. Supprimer toutes les epreuves pour lesquelles aucune inscription n'a ete enregistree\n");
+    gotoxy(15,21);
+     printf("\n");
+      gotoxy(15,22);
+    printf("#8. Quitter le programme \n");
+    gotoxy(15,23);
+     printf("\n");
+        gotoxy(15,24);
+        textcolor (LIGHTBLUE );
+        printf("========================================================================================\n");
          up(14,y);
             }
 break ;
 
-  case 10 :
+  case 14 :
       if ( z == 13)
             {
                  return 4 ;
@@ -893,65 +1149,116 @@ break ;
 if (z == 0x50)
             {
          clrscr();
-         gotoxy(15,5);
-         printf("Choisissez dans la liste suivante l'opération que vous souhaitez effectuer\n");
-         gotoxy(15,6);
-         printf("========================================================================\n");
-         gotoxy(15,7);
-         printf("#1. Affichier tous les athlethes de tous les epreuves et les pays\n");
-         gotoxy(15,8);
-         printf("#2. Inserer une athlethe\n");
-         gotoxy(15,9);
-         printf("#3. Afficher les noms de tous les athlethes d'un pays donne\n");
-         gotoxy(15,10);
-         printf("#4. Supprimer une pays a cause des raisons politiques\n");
-         gotoxy(15,11);
-         textbackground(GREEN) ;
-         printf("#5. supprimer un athlète disqualifié ou blesse\n");
-         textbackground(BLACK) ;
-         gotoxy(15,12);
-         printf("#6. supprime toutes les epreuves pour lesquelles aucune inscription n' a ete enregistree.\n");
-         gotoxy(15,13);
-         printf("#7. Quitter le programme\n");
-         gotoxy(15,14);
-         printf("========================================================================\n");
+         gotoxy(15,4) ;
+         textcolor (LIGHTBLUE );
+   printf("========================================================================================\n");
+   gotoxy(48,5);
+   textcolor (LIGHTRED );
+   printf("Welcome to Paris 2024\n");
+    gotoxy(15,6);
+    textcolor (LIGHTBLUE );
+    printf("========================================================================================\n");
+        gotoxy(15,7);
+        textcolor (WHITE);
+        printf("\n");
+        gotoxy(15,8);
+    printf("#1.Creer tabjo contenant les noms de tous les athletes de tous les pays dans toutes les epreuves\n");
+     gotoxy(15,9) ;
+     printf("\n");
+     gotoxy(15,10);
+    printf("#2. Inserer une athlethe\n");
+    gotoxy(15,11);
+     printf("\n");
+        gotoxy(15,12);
+    printf("#3. Afficher les noms de tous les athlethes d'un pays donne\n");
+    gotoxy(15,13);
+     printf("\n");
+        gotoxy(15,14);
+    printf("#4. Afficher le contenu complet de la matrice tabjo epreuve par epreuve\n");
+    gotoxy(15,15);
+     printf("\n");
+         gotoxy(15,16);
+         textbackground(LIGHTRED);
+    printf("#5. Supprimer un pays pour des raisons budgetaires ou politiques\n");
+    gotoxy(15,17);
+     printf("\n");
+        gotoxy(15,18);
+        textbackground(BLACK);
+    printf("#6. Supprimer un athlethe disqualifie ou blesse\n");
+    gotoxy(15,19);
+     printf("\n");
+         gotoxy(15,20);
+    printf("#7. Supprimer toutes les epreuves pour lesquelles aucune inscription n'a ete enregistree\n");
+    gotoxy(15,21);
+     printf("\n");
+      gotoxy(15,22);
+    printf("#8. Quitter le programme \n");
+    gotoxy(15,23);
+     printf("\n");
+        gotoxy(15,24);
+        textcolor (LIGHTBLUE );
+        printf("========================================================================================\n");
          down(14,y);
             }
             else if ( z == 0x48)
             {
          clrscr();
-         gotoxy(15,5);
-         printf("Choisissez dans la liste suivante l'opération que vous souhaitez effectuer\n");
-         gotoxy(15,6);
-         printf("========================================================================\n");
-         gotoxy(15,7);
+       gotoxy(15,4) ;
+       textcolor (LIGHTBLUE );
+   printf("========================================================================================\n");
+   gotoxy(48,5);
+   textcolor (LIGHTRED );
+   printf("Welcome to Paris 2024\n");
+    gotoxy(15,6);
+    textcolor (LIGHTBLUE );
+    printf("========================================================================================\n");
+        gotoxy(15,7);
+        printf("\n");
+        gotoxy(15,8);
 
+      textcolor (WHITE );
+    printf("#1.Creer tabjo contenant les noms de tous les athletes de tous les pays dans toutes les epreuves\n");
 
-         printf("#1. Affichier tous les athlethes de tous les epreuves et les pays\n");
-         gotoxy(15,8);
-
-         printf("#2. Inserer une athlethe\n");
-         gotoxy(15,9);
-                           textbackground(GREEN) ;
-
-         printf("#3. Afficher les noms de tous les athlethes d'un pays donne\n");
-         gotoxy(15,10);
-                           textbackground(BLACK) ;
-
-         printf("#4. Supprimer une pays a cause des raisons politiques\n");
-         gotoxy(15,11);
-         printf("#5. supprimer un athlète disqualifié ou blesse\n");
-         gotoxy(15,12);
-         printf("#6. supprime toutes les epreuves pour lesquelles aucune inscription n' a ete enregistree.\n");
-         gotoxy(15,13);
-         printf("#7. Quitter le programme\n");
-         gotoxy(15,14);
-         printf("========================================================================\n");
+     gotoxy(15,9) ;
+     printf("\n");
+     gotoxy(15,10);
+    printf("#2. Inserer une athlethe\n");
+    gotoxy(15,11);
+     printf("\n");
+        gotoxy(15,12);
+        textbackground(LIGHTRED) ;
+    printf("#3. Afficher les noms de tous les athlethes d'un pays donne\n");
+    gotoxy(15,13);
+     printf("\n");
+        gotoxy(15,14);
+        textbackground(BLACK) ;
+    printf("#4. Afficher le contenu complet de la matrice tabjo epreuve par epreuve\n");
+    gotoxy(15,15);
+     printf("\n");
+         gotoxy(15,16);
+    printf("#5. Supprimer un pays pour des raisons budgetaires ou politiques\n");
+    gotoxy(15,17);
+     printf("\n");
+        gotoxy(15,18);
+    printf("#6. Supprimer un athlethe disqualifie ou blesse\n");
+    gotoxy(15,19);
+     printf("\n");
+         gotoxy(15,20);
+    printf("#7. Supprimer toutes les epreuves pour lesquelles aucune inscription n'a ete enregistree\n");
+    gotoxy(15,21);
+     printf("\n");
+      gotoxy(15,22);
+    printf("#8. Quitter le programme \n");
+    gotoxy(15,23);
+     printf("\n");
+        gotoxy(15,24);
+        textcolor (LIGHTBLUE );
+        printf("========================================================================================\n");
          up(14,y);
             }
             break ;
 
-             case 11 :
+             case 16 :
                  if ( z == 13 )
             {
                  return 5 ;
@@ -960,71 +1267,118 @@ if (z == 0x50)
 if (z == 0x50)
             {
          clrscr();
-         gotoxy(15,5);
-         printf("Choisissez dans la liste suivante l'opération que vous souhaitez effectuer\n");
-         gotoxy(15,6);
-         printf("========================================================================\n");
-         gotoxy(15,7);
-         printf("#1. Affichier tous les athlethes de tous les epreuves et les pays\n");
-         gotoxy(15,8);
-         printf("#2. Inserer une athlethe\n");
+ gotoxy(15,4) ;
+ textcolor (LIGHTBLUE );
+   printf("========================================================================================\n");
+   gotoxy(48,5);
+   textcolor (LIGHTRED );
+   printf("Welcome to Paris 2024\n");
+    gotoxy(15,6);
+    textcolor (LIGHTBLUE );
+    printf("========================================================================================\n");
+        gotoxy(15,7);
+        printf("\n");
+        gotoxy(15,8);
+textcolor (WHITE);
 
-         gotoxy(15,9);
-         printf("#3. Afficher les noms de tous les athlethes d'un pays donne\n");
-         gotoxy(15,10);
+    printf("#1.Creer tabjo contenant les noms de tous les athletes de tous les pays dans toutes les epreuves\n");
 
-         printf("#4. Supprimer une pays a cause des raisons politiques\n");
-         gotoxy(15,11);
-
-         printf("#5. supprimer un athlète disqualifié ou blesse\n");
-         gotoxy(15,12);
-                           textbackground(GREEN) ;
-
-         printf("#6. supprime toutes les epreuves pour lesquelles aucune inscription n' a ete enregistree.\n");
-         gotoxy(15,13);
-                           textbackground(BLACK) ;
-
-         printf("#7. Quitter le programme\n");
-         gotoxy(15,14);
-         printf("========================================================================\n");
+     gotoxy(15,9) ;
+     printf("\n");
+     gotoxy(15,10);
+    printf("#2. Inserer une athlethe\n");
+    gotoxy(15,11);
+     printf("\n");
+        gotoxy(15,12);
+    printf("#3. Afficher les noms de tous les athlethes d'un pays donne\n");
+    gotoxy(15,13);
+     printf("\n");
+        gotoxy(15,14);
+    printf("#4. Afficher le contenu complet de la matrice tabjo epreuve par epreuve\n");
+    gotoxy(15,15);
+     printf("\n");
+         gotoxy(15,16);
+    printf("#5. Supprimer un pays pour des raisons budgetaires ou politiques\n");
+    gotoxy(15,17);
+     printf("\n");
+        gotoxy(15,18);
+        textbackground(LIGHTRED) ;
+    printf("#6. Supprimer un athlethe disqualifie ou blesse\n");
+    gotoxy(15,19);
+     printf("\n");
+         gotoxy(15,20);
+         textbackground(BLACK) ;
+    printf("#7. Supprimer toutes les epreuves pour lesquelles aucune inscription n'a ete enregistree\n");
+    gotoxy(15,21);
+     printf("\n");
+      gotoxy(15,22);
+    printf("#8. Quitter le programme \n");
+    gotoxy(15,23);
+     printf("\n");
+        gotoxy(15,24);
+        textcolor (LIGHTBLUE );
+        printf("========================================================================================\n");
          down(14,y);
             }
             else if ( z == 0x48)
             {
          clrscr();
-         gotoxy(15,5);
-         printf("Choisissez dans la liste suivante l'opération que vous souhaitez effectuer\n");
-         gotoxy(15,6);
-         printf("========================================================================\n");
-         gotoxy(15,7);
+       gotoxy(15,4) ;
+       textcolor (LIGHTBLUE );
+   printf("========================================================================================\n");
+   gotoxy(48,5);
+   textcolor (LIGHTRED );
+   printf("Welcome to Paris 2024\n");
+    gotoxy(15,6);
+    textcolor (LIGHTBLUE );
+    printf("========================================================================================\n");
+        gotoxy(15,7);
+        printf("\n");
+        gotoxy(15,8);
 
+textcolor (WHITE);
+    printf("#1.Creer tabjo contenant les noms de tous les athletes de tous les pays dans toutes les epreuves\n");
 
-         printf("#1. Affichier tous les athlethes de tous les epreuves et les pays\n");
-         gotoxy(15,8);
-
-         printf("#2. Inserer une athlethe\n");
-         gotoxy(15,9);
-
-         printf("#3. Afficher les noms de tous les athlethes d'un pays donne\n");
-         gotoxy(15,10);
-                           textbackground(GREEN) ;
-
-         printf("#4. Supprimer une pays a cause des raisons politiques\n");
-         gotoxy(15,11);
-                                    textbackground(BLACK) ;
-
-         printf("#5. supprimer un athlète disqualifié ou blesse\n");
-         gotoxy(15,12);
-         printf("#6. supprime toutes les epreuves pour lesquelles aucune inscription n' a ete enregistree.\n");
-         gotoxy(15,13);
-         printf("#7. Quitter le programme\n");
-         gotoxy(15,14);
-         printf("========================================================================\n");
+     gotoxy(15,9) ;
+     printf("\n");
+     gotoxy(15,10);
+    printf("#2. Inserer une athlethe\n");
+    gotoxy(15,11);
+     printf("\n");
+        gotoxy(15,12);
+    printf("#3. Afficher les noms de tous les athlethes d'un pays donne\n");
+    gotoxy(15,13);
+     printf("\n");
+        gotoxy(15,14);
+        textbackground(LIGHTRED) ;
+    printf("#4. Afficher le contenu complet de la matrice tabjo epreuve par epreuve\n");
+    gotoxy(15,15);
+     printf("\n");
+         gotoxy(15,16);
+         textbackground(BLACK) ;
+    printf("#5. Supprimer un pays pour des raisons budgetaires ou politiques\n");
+    gotoxy(15,17);
+     printf("\n");
+        gotoxy(15,18);
+    printf("#6. Supprimer un athlethe disqualifie ou blesse\n");
+    gotoxy(15,19);
+     printf("\n");
+         gotoxy(15,20);
+    printf("#7. Supprimer toutes les epreuves pour lesquelles aucune inscription n'a ete enregistree\n");
+    gotoxy(15,21);
+     printf("\n");
+      gotoxy(15,22);
+    printf("#8. Quitter le programme \n");
+    gotoxy(15,23);
+     printf("\n");
+        gotoxy(15,24);
+        textcolor (LIGHTBLUE );
+        printf("========================================================================================\n");
          up(14,y);
             }
 
         break ;
-case 12 :
+case 18 :
     if ( z == 13 )
             {
                  return 6 ;
@@ -1033,72 +1387,240 @@ case 12 :
 if (z == 0x50)
             {
          clrscr();
-         gotoxy(15,5);
-         printf("Choisissez dans la liste suivante l'opération que vous souhaitez effectuer\n");
-         gotoxy(15,6);
-         printf("========================================================================\n");
-         gotoxy(15,7);
-         printf("#1. Affichier tous les athlethes de tous les epreuves et les pays\n");
-         gotoxy(15,8);
-         printf("#2. Inserer une athlethe\n");
+ gotoxy(15,4) ;
+ textcolor (LIGHTBLUE );
+   printf("========================================================================================\n");
+   gotoxy(48,5);
+   textcolor (LIGHTRED );
+   printf("Welcome to Paris 2024\n");
+    gotoxy(15,6);
+    textcolor (LIGHTBLUE );
+    printf("========================================================================================\n");
+        gotoxy(15,7);
+        printf("\n");
+        gotoxy(15,8);
 
-         gotoxy(15,9);
-         printf("#3. Afficher les noms de tous les athlethes d'un pays donne\n");
-         gotoxy(15,10);
+textcolor (WHITE );
+    printf("#1.Creer tabjo contenant les noms de tous les athletes de tous les pays dans toutes les epreuves\n");
 
-         printf("#4. Supprimer une pays a cause des raisons politiques\n");
-         gotoxy(15,11);
-
-         printf("#5. supprimer un athlète disqualifié ou blesse\n");
-         gotoxy(15,12);
-
-
-         printf("#6. supprime toutes les epreuves pour lesquelles aucune inscription n' a ete enregistree.\n");
-         gotoxy(15,13);
-                           textbackground(GREEN) ;
-
-         printf("#7. Quitter le programme\n");
-         textbackground(BLACK) ;
-         gotoxy(15,14);
-         printf("========================================================================\n");
+     gotoxy(15,9) ;
+     printf("\n");
+     gotoxy(15,10);
+    printf("#2. Inserer une athlethe\n");
+    gotoxy(15,11);
+     printf("\n");
+        gotoxy(15,12);
+    printf("#3. Afficher les noms de tous les athlethes d'un pays donne\n");
+    gotoxy(15,13);
+     printf("\n");
+        gotoxy(15,14);
+    printf("#4. Afficher le contenu complet de la matrice tabjo epreuve par epreuve\n");
+    gotoxy(15,15);
+     printf("\n");
+         gotoxy(15,16);
+    printf("#5. Supprimer un pays pour des raisons budgetaires ou politiques\n");
+    gotoxy(15,17);
+     printf("\n");
+        gotoxy(15,18);
+    printf("#6. Supprimer un athlethe disqualifie ou blesse\n");
+    gotoxy(15,19);
+     printf("\n");
+         gotoxy(15,20);
+         textbackground(LIGHTRED) ;
+    printf("#7. Supprimer toutes les epreuves pour lesquelles aucune inscription n'a ete enregistree\n");
+    gotoxy(15,21);
+     printf("\n");
+      gotoxy(15,22);
+      textbackground(BLACK) ;
+    printf("#8. Quitter le programme \n");
+    gotoxy(15,23);
+     printf("\n");
+        gotoxy(15,24);
+        textcolor (LIGHTBLUE );
+        printf("========================================================================================\n");
          down(14,y);
             }
             else if ( z == 0x48)
             {
          clrscr();
-         gotoxy(15,5);
-         printf("Choisissez dans la liste suivante l'opération que vous souhaitez effectuer\n");
-         gotoxy(15,6);
-         printf("========================================================================\n");
-         gotoxy(15,7);
+       gotoxy(15,4) ;
+       textcolor (LIGHTBLUE );
+   printf("========================================================================================\n");
+   gotoxy(48,5);
+   textcolor (LIGHTRED );
+   printf("Welcome to Paris 2024\n");
+    gotoxy(15,6);
+    textcolor (LIGHTBLUE );
+    printf("========================================================================================\n");
+        gotoxy(15,7);
+        printf("\n");
+        gotoxy(15,8);
+textcolor (WHITE);
 
+    printf("#1.Creer tabjo contenant les noms de tous les athletes de tous les pays dans toutes les epreuves\n");
 
-         printf("#1. Affichier tous les athlethes de tous les epreuves et les pays\n");
-         gotoxy(15,8);
-
-         printf("#2. Inserer une athlethe\n");
-         gotoxy(15,9);
-
-         printf("#3. Afficher les noms de tous les athlethes d'un pays donne\n");
-         gotoxy(15,10);
-
-
-         printf("#4. Supprimer une pays a cause des raisons politiques\n");
-         gotoxy(15,11);
-                                    textbackground(GREEN) ;
-
-         printf("#5. supprimer un athlète disqualifié ou blesse\n");
-         gotoxy(15,12);
-          textbackground(BLACK) ;
-         printf("#6. supprime toutes les epreuves pour lesquelles aucune inscription n' a ete enregistree.\n");
-         gotoxy(15,13);
-         printf("#7. Quitter le programme\n");
-         gotoxy(15,14);
-         printf("========================================================================\n");
+     gotoxy(15,9) ;
+     printf("\n");
+     gotoxy(15,10);
+    printf("#2. Inserer une athlethe\n");
+    gotoxy(15,11);
+     printf("\n");
+        gotoxy(15,12);
+    printf("#3. Afficher les noms de tous les athlethes d'un pays donne\n");
+    gotoxy(15,13);
+     printf("\n");
+        gotoxy(15,14);
+    printf("#4. Afficher le contenu complet de la matrice tabjo epreuve par epreuve\n");
+    gotoxy(15,15);
+     printf("\n");
+         gotoxy(15,16);
+         textbackground(LIGHTRED) ;
+    printf("#5. Supprimer un pays pour des raisons budgetaires ou politiques\n");
+    gotoxy(15,17);
+     printf("\n");
+        gotoxy(15,18);
+        textbackground(BLACK) ;
+    printf("#6. Supprimer un athlethe disqualifie ou blesse\n");
+    gotoxy(15,19);
+     printf("\n");
+         gotoxy(15,20);
+    printf("#7. Supprimer toutes les epreuves pour lesquelles aucune inscription n'a ete enregistree\n");
+    gotoxy(15,21);
+     printf("\n");
+      gotoxy(15,22);
+    printf("#8. Quitter le programme \n");
+    gotoxy(15,23);
+     printf("\n");
+        gotoxy(15,24);
+        textcolor (LIGHTBLUE );
+        printf("========================================================================================\n");
          up(14,y);
         }
         break ;
-case 13 :
+case 22 :
+    if ( z == 13 )
+            {
+                 return 8 ;
+                 break ;
+            }
+    if (z == 0x50)
+            {
+         clrscr();
+        gotoxy(15,4) ;
+        textcolor (LIGHTBLUE );
+   printf("========================================================================================\n");
+   gotoxy(48,5);
+   textcolor (LIGHTRED );
+   printf("Welcome to Paris 2024\n");
+    gotoxy(15,6);
+    textcolor (LIGHTBLUE );
+    printf("========================================================================================\n");
+    textcolor (WHITE );
+        gotoxy(15,7);
+        printf("\n");
+        gotoxy(15,8);
+    textbackground(LIGHTRED);
+
+    printf("#1.Creer tabjo contenant les noms de tous les athletes de tous les pays dans toutes les epreuves\n");
+
+     gotoxy(15,9) ;
+     printf("\n");
+     gotoxy(15,10);
+     textbackground(BLACK);
+    printf("#2. Inserer une athlethe\n");
+    gotoxy(15,11);
+     printf("\n");
+        gotoxy(15,12);
+    printf("#3. Afficher les noms de tous les athlethes d'un pays donne\n");
+    gotoxy(15,13);
+     printf("\n");
+        gotoxy(15,14);
+    printf("#4. Afficher le contenu complet de la matrice tabjo epreuve par epreuve\n");
+    gotoxy(15,15);
+     printf("\n");
+         gotoxy(15,16);
+    printf("#5. Supprimer un pays pour des raisons budgetaires ou politiques\n");
+    gotoxy(15,17);
+     printf("\n");
+        gotoxy(15,18);
+    printf("#6. Supprimer un athlethe disqualifie ou blesse\n");
+    gotoxy(15,19);
+     printf("\n");
+         gotoxy(15,20);
+    printf("#7. Supprimer toutes les epreuves pour lesquelles aucune inscription n'a ete enregistree\n");
+    gotoxy(15,21);
+     printf("\n");
+      gotoxy(15,22);
+
+    printf("#8. Quitter le programme \n");
+
+    gotoxy(15,23);
+     printf("\n");
+        gotoxy(15,24);
+        textcolor (LIGHTBLUE );
+        printf("========================================================================================\n");
+         gotoxy(14,8);
+            }
+            else if ( z == 0x48)
+            {
+         clrscr();
+      gotoxy(15,4) ;
+      textcolor (LIGHTBLUE );
+   printf("========================================================================================\n");
+   gotoxy(48,5);
+   textcolor (LIGHTRED );
+   printf("Welcome to Paris 2024\n");
+    gotoxy(15,6);
+    textcolor (LIGHTBLUE );
+    printf("========================================================================================\n");
+        gotoxy(15,7);
+        printf("\n");
+        gotoxy(15,8);
+textcolor (WHITE );
+
+    printf("#1.Creer tabjo contenant les noms de tous les athletes de tous les pays dans toutes les epreuves\n");
+
+     gotoxy(15,9) ;
+     printf("\n");
+     gotoxy(15,10);
+    printf("#2. Inserer une athlethe\n");
+    gotoxy(15,11);
+     printf("\n");
+        gotoxy(15,12);
+    printf("#3. Afficher les noms de tous les athlethes d'un pays donne\n");
+    gotoxy(15,13);
+     printf("\n");
+        gotoxy(15,14);
+    printf("#4. Afficher le contenu complet de la matrice tabjo epreuve par epreuve\n");
+    gotoxy(15,15);
+     printf("\n");
+         gotoxy(15,16);
+    printf("#5. Supprimer un pays pour des raisons budgetaires ou politiques\n");
+    gotoxy(15,17);
+     printf("\n");
+        gotoxy(15,18);
+       ;
+    printf("#6. Supprimer un athlethe disqualifie ou blesse\n");
+    gotoxy(15,19);
+     printf("\n");
+         gotoxy(15,20);
+          textbackground(LIGHTRED) ;
+
+    printf("#7. Supprimer toutes les epreuves pour lesquelles aucune inscription n'a ete enregistree\n");
+    gotoxy(15,21);
+     printf("\n");
+      gotoxy(15,22);
+      textbackground(BLACK) ;
+    printf("#8. Quitter le programme \n");
+    gotoxy(15,23);
+     printf("\n");
+        gotoxy(15,24);
+        textcolor (LIGHTBLUE );
+        printf("========================================================================================\n");
+         up(14,y);
+            }
+            break ;
+            case 20 :
     if ( z == 13 )
             {
                  return 7 ;
@@ -1107,57 +1629,113 @@ case 13 :
     if (z == 0x50)
             {
          clrscr();
-         gotoxy(15,5);
-         printf("Choisissez dans la liste suivante l'opération que vous souhaitez effectuer\n");
-         gotoxy(15,6);
-         printf("========================================================================\n");
-         gotoxy(15,7);
-         textbackground(GREEN) ;
-         printf("#1. Affichier tous les athlethes de tous les epreuves et les pays\n");
-         gotoxy(15,8);
-         textbackground(BLACK) ;
-         printf("#2. Inserer une athlethe\n");
-         gotoxy(15,9);
-         printf("#3. Afficher les noms de tous les athlethes d'un pays donne\n");
-         gotoxy(15,10);
-         printf("#4. Supprimer une pays a cause des raisons politiques\n");
-         gotoxy(15,11);
-         printf("#5. supprimer un athlète disqualifié ou blesse\n");
-         gotoxy(15,12);
-         printf("#6. supprime toutes les epreuves pour lesquelles aucune inscription n' a ete enregistree.\n");
-         gotoxy(15,13);
-         printf("#7. Quitter le programme\n");
-         gotoxy(15,14);
-         printf("========================================================================\n");
-         gotoxy(14,7);
+        gotoxy(15,4) ;
+        textcolor (LIGHTBLUE );
+   printf("========================================================================================\n");
+   gotoxy(48,5);
+   textcolor (LIGHTRED );
+   printf("Welcome to Paris 2024\n");
+    gotoxy(15,6);
+    textcolor (LIGHTBLUE );
+    printf("========================================================================================\n");
+        gotoxy(15,7);
+        printf("\n");
+        gotoxy(15,8);
+
+textcolor (WHITE );
+    printf("#1.Creer tabjo contenant les noms de tous les athletes de tous les pays dans toutes les epreuves\n");
+
+     gotoxy(15,9) ;
+     printf("\n");
+     gotoxy(15,10);
+    printf("#2. Inserer une athlethe\n");
+    gotoxy(15,11);
+     printf("\n");
+        gotoxy(15,12);
+    printf("#3. Afficher les noms de tous les athlethes d'un pays donne\n");
+    gotoxy(15,13);
+     printf("\n");
+        gotoxy(15,14);
+    printf("#4. Afficher le contenu complet de la matrice tabjo epreuve par epreuve\n");
+    gotoxy(15,15);
+     printf("\n");
+         gotoxy(15,16);
+    printf("#5. Supprimer un pays pour des raisons budgetaires ou politiques\n");
+    gotoxy(15,17);
+     printf("\n");
+        gotoxy(15,18);
+    printf("#6. Supprimer un athlethe disqualifie ou blesse\n");
+    gotoxy(15,19);
+     printf("\n");
+         gotoxy(15,20);
+    printf("#7. Supprimer toutes les epreuves pour lesquelles aucune inscription n'a ete enregistree\n");
+    gotoxy(15,21);
+     printf("\n");
+      gotoxy(15,22);
+      textbackground(LIGHTRED) ;
+    printf("#8. Quitter le programme \n");
+    textbackground(BLACK) ;
+    gotoxy(15,23);
+     printf("\n");
+        gotoxy(15,24);
+        textcolor (LIGHTBLUE );
+        printf("========================================================================================\n");
+         down(14,y);
             }
             else if ( z == 0x48)
             {
          clrscr();
-         gotoxy(15,5);
-         printf("Choisissez dans la liste suivante l'opération que vous souhaitez effectuer\n");
-         gotoxy(15,6);
-         printf("========================================================================\n");
-         gotoxy(15,7);
-         printf("#1. Affichier tous les athlethes de tous les epreuves et les pays\n");
-         gotoxy(15,8);
-         printf("#2. Inserer une athlethe\n");
-         gotoxy(15,9);
-         printf("#3. Afficher les noms de tous les athlethes d'un pays donne\n");
-         gotoxy(15,10);
+      gotoxy(15,4) ;
+      textcolor (LIGHTBLUE );
+   printf("========================================================================================\n");
+   gotoxy(48,5);
+   textcolor (LIGHTRED);
+   printf("Welcome to Paris 2024\n");
+    gotoxy(15,6);
+    textcolor (LIGHTBLUE );
+    printf("========================================================================================\n");
+        gotoxy(15,7);
+        printf("\n");
+        gotoxy(15,8);
 
-         printf("#4. Supprimer une pays a cause des raisons politiques\n");
-         gotoxy(15,11);
+textcolor (WHITE );
+    printf("#1.Creer tabjo contenant les noms de tous les athletes de tous les pays dans toutes les epreuves\n");
 
-         printf("#5. supprimer un athlète disqualifié ou blesse\n");
-         gotoxy(15,12);
-         textbackground(GREEN) ;
-         printf("#6. supprime toutes les epreuves pour lesquelles aucune inscription n' a ete enregistree.\n");
-         gotoxy(15,13);
+     gotoxy(15,9) ;
+     printf("\n");
+     gotoxy(15,10);
+    printf("#2. Inserer une athlethe\n");
+    gotoxy(15,11);
+     printf("\n");
+        gotoxy(15,12);
+    printf("#3. Afficher les noms de tous les athlethes d'un pays donne\n");
+    gotoxy(15,13);
+     printf("\n");
+        gotoxy(15,14);
+    printf("#4. Afficher le contenu complet de la matrice tabjo epreuve par epreuve\n");
+    gotoxy(15,15);
+     printf("\n");
+         gotoxy(15,16);
+    printf("#5. Supprimer un pays pour des raisons budgetaires ou politiques\n");
+    gotoxy(15,17);
+     printf("\n");
+        gotoxy(15,18);
+        textbackground(LIGHTRED) ;
+    printf("#6. Supprimer un athlethe disqualifie ou blesse\n");
+    gotoxy(15,19);
+     printf("\n");
+         gotoxy(15,20);
          textbackground(BLACK) ;
-         printf("#7. Quitter le programme\n");
-         gotoxy(15,14);
-         printf("========================================================================\n");
+    printf("#7. Supprimer toutes les epreuves pour lesquelles aucune inscription n'a ete enregistree\n");
+    gotoxy(15,21);
+     printf("\n");
+      gotoxy(15,22);
+    printf("#8. Quitter le programme \n");
+    gotoxy(15,23);
+     printf("\n");
+        gotoxy(15,24);
+        textcolor (LIGHTBLUE );
+        printf("========================================================================================\n");
          up(14,y);
             }
             break ;
