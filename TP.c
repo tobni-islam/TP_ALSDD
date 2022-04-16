@@ -18,8 +18,8 @@ typedef athlethe  * ptr ; // nouveau type pour les pointeures ptr khirmn point
 
 const unsigned MAX = 10;
 
-const int maxpays = 3;
-const int maxepreuve = 3;
+const int maxpays = 150;
+const int maxepreuve = 200;
 
 // #### Machine abstraite #### //
 
@@ -66,7 +66,7 @@ void suplignesvides(ptr tabjo[maxepreuve][maxpays],int nbpays,int *nbepreuve,cha
 
 //   Menu principale
 int menu();
-
+int console () ;
 
 
 
@@ -92,518 +92,18 @@ int main()
     tab_nom(tabnom);
     creer_tabjo(tabjo,tabnom);
     // Menu principale
-    printf("##########    Bienvenue dans cette fucking program qui permet d'organiser les inscription des jeux olympique  #########\n");
     int choie ;
     int z,choix ;
-    choix = 0;
+
     gotoxy(15,5);
-    printf("Choisissez dans la liste suivante l'opération que vous souhaitez effectuer\n");
-    gotoxy(15,6);
-    printf("========================================================================\n");
-        gotoxy(15,7);
-        textbackground(GREEN) ;
-    printf("#1. Affichier tous les athlethes de tous les epreuves et les pays\n");
-        textbackground(BLACK) ;
-        gotoxy(15,8);
-    printf("#2. Inserer une athlethe\n");
-        gotoxy(15,9);
-    printf("#3. Afficher les noms de tous les athlethes d'un pays donne\n");
-        gotoxy(15,10);
-    printf("#4. Supprimer une pays a cause des raisons politiques\n");
-        gotoxy(15,11);
-    printf("#5. supprimer un athlète disqualifié ou blesse\n");
-        gotoxy(15,12);
-    printf("#6. supprime toutes les epreuves pour lesquelles aucune inscription n' a ete enregistree.\n");
-        gotoxy(15,13);
-    printf("#7. Quitter le programme\n");
-        gotoxy(15,14);
-    printf("========================================================================\n");
-        gotoxy(15,7);
 
-        while(choix == 0 )
-        {
-        int y = wherey() ;
-        z = getch() ;
-        switch (y)
-        {
-        case 7  :
-            if ( z == 0x0A)
-            {
-                choix = 1 ;
-                break ;
-            }
-            if (z == 0x50)
-            {
-         clrscr();
-         gotoxy(15,5);
-         printf("Choisissez dans la liste suivante l'opération que vous souhaitez effectuer\n");
-         gotoxy(15,6);
-         printf("========================================================================\n");
-         gotoxy(15,7);
-         printf("#1. Affichier tous les athlethes de tous les epreuves et les pays\n");
-         gotoxy(15,8);
-         textbackground(GREEN) ;
-         printf("#2. Inserer une athlethe\n");
-                  textbackground(BLACK) ;
-         gotoxy(15,9);
-         printf("#3. Afficher les noms de tous les athlethes d'un pays donne\n");
-         gotoxy(15,10);
-         printf("#4. Supprimer une pays a cause des raisons politiques\n");
-         gotoxy(15,11);
-         printf("#5. supprimer un athlète disqualifié ou blesse\n");
-         gotoxy(15,12);
-         printf("#6. supprime toutes les epreuves pour lesquelles aucune inscription n' a ete enregistree.\n");
-         gotoxy(15,13);
-         printf("#7. Quitter le programme\n");
-         gotoxy(15,14);
-         printf("========================================================================\n");
-         down(14,y);
-            }
-            else if ( z == 0x48)
-            {
-         clrscr();
-         gotoxy(15,5);
-         printf("Choisissez dans la liste suivante l'opération que vous souhaitez effectuer\n");
-         gotoxy(15,6);
-         printf("========================================================================\n");
-         gotoxy(15,7);
-         printf("#1. Affichier tous les athlethes de tous les epreuves et les pays\n");
-         gotoxy(15,8);
-         printf("#2. Inserer une athlethe\n");
-         gotoxy(15,9);
-         printf("#3. Afficher les noms de tous les athlethes d'un pays donne\n");
-         gotoxy(15,10);
-         printf("#4. Supprimer une pays a cause des raisons politiques\n");
-         gotoxy(15,11);
-         printf("#5. supprimer un athlète disqualifié ou blesse\n");
-         gotoxy(15,12);
-         printf("#6. supprime toutes les epreuves pour lesquelles aucune inscription n' a ete enregistree.\n");
-         gotoxy(15,13);
-         textbackground(GREEN) ;
-         printf("#7. Quitter le programme\n");
-         gotoxy(15,14);
-         textbackground(BLACK);
-         printf("========================================================================\n");
-         gotoxy(14,13);
-            }
-            break ;
-        case 8 :
-            if ( z == 0x0A )
-            {
-                choix = 2 ;
-                break ;
-            }
-               if (z == 0x50)
-            {
-         clrscr();
-         gotoxy(15,5);
-         printf("Choisissez dans la liste suivante l'opération que vous souhaitez effectuer\n");
-         gotoxy(15,6);
-         printf("========================================================================\n");
-         gotoxy(15,7);
-         printf("#1. Affichier tous les athlethes de tous les epreuves et les pays\n");
-         gotoxy(15,8);
-         printf("#2. Inserer une athlethe\n");
-         textbackground(GREEN) ;
-         gotoxy(15,9);
-         printf("#3. Afficher les noms de tous les athlethes d'un pays donne\n");
-         textbackground(BLACK) ;
-         gotoxy(15,10);
-         printf("#4. Supprimer une pays a cause des raisons politiques\n");
-         gotoxy(15,11);
-         printf("#5. supprimer un athlète disqualifié ou blesse\n");
-         gotoxy(15,12);
-         printf("#6. supprime toutes les epreuves pour lesquelles aucune inscription n' a ete enregistree.\n");
-         gotoxy(15,13);
-         printf("#7. Quitter le programme\n");
-         gotoxy(15,14);
-         printf("========================================================================\n");
-         down(14,y);
-            }
-            else if ( z == 0x48)
-            {
-         clrscr();
-         gotoxy(15,5);
-         printf("Choisissez dans la liste suivante l'opération que vous souhaitez effectuer\n");
-         gotoxy(15,6);
-         printf("========================================================================\n");
-         gotoxy(15,7);
-                 textbackground(GREEN) ;
-
-         printf("#1. Affichier tous les athlethes de tous les epreuves et les pays\n");
-         gotoxy(15,8);
-                 textbackground(BLACK);
-
-         printf("#2. Inserer une athlethe\n");
-         gotoxy(15,9);
-         printf("#3. Afficher les noms de tous les athlethes d'un pays donne\n");
-         gotoxy(15,10);
-         printf("#4. Supprimer une pays a cause des raisons politiques\n");
-         gotoxy(15,11);
-         printf("#5. supprimer un athlète disqualifié ou blesse\n");
-         gotoxy(15,12);
-         printf("#6. supprime toutes les epreuves pour lesquelles aucune inscription n' a ete enregistree.\n");
-         gotoxy(15,13);
-         printf("#7. Quitter le programme\n");
-         gotoxy(15,14);
-         printf("========================================================================\n");
-         up(14,y);
-            }
-            break ;
-        case 9 :
-            if ( z == 0x0A )
-            {
-                 choix = 3 ;
-                 break ;
-            }
-         if (z == 0x50)
-            {
-         clrscr();
-         gotoxy(15,5);
-         printf("Choisissez dans la liste suivante l'opération que vous souhaitez effectuer\n");
-         gotoxy(15,6);
-         printf("========================================================================\n");
-         gotoxy(15,7);
-         printf("#1. Affichier tous les athlethes de tous les epreuves et les pays\n");
-         gotoxy(15,8);
-         printf("#2. Inserer une athlethe\n");
-
-         gotoxy(15,9);
-         printf("#3. Afficher les noms de tous les athlethes d'un pays donne\n");
-         gotoxy(15,10);
-                  textbackground(GREEN) ;
-
-         printf("#4. Supprimer une pays a cause des raisons politiques\n");
-         gotoxy(15,11);
-                  textbackground(BLACK) ;
-
-         printf("#5. supprimer un athlète disqualifié ou blesse\n");
-         gotoxy(15,12);
-         printf("#6. supprime toutes les epreuves pour lesquelles aucune inscription n' a ete enregistree.\n");
-         gotoxy(15,13);
-         printf("#7. Quitter le programme\n");
-         gotoxy(15,14);
-         printf("========================================================================\n");
-         down(14,y);
-            }
-            else if ( z == 0x48)
-            {
-         clrscr();
-         gotoxy(15,5);
-         printf("Choisissez dans la liste suivante l'opération que vous souhaitez effectuer\n");
-         gotoxy(15,6);
-         printf("========================================================================\n");
-         gotoxy(15,7);
-
-
-         printf("#1. Affichier tous les athlethes de tous les epreuves et les pays\n");
-         gotoxy(15,8);
-          textbackground(GREEN) ;
-
-         printf("#2. Inserer une athlethe\n");
-         gotoxy(15,9);
-         textbackground(BLACK) ;
-         printf("#3. Afficher les noms de tous les athlethes d'un pays donne\n");
-         gotoxy(15,10);
-         printf("#4. Supprimer une pays a cause des raisons politiques\n");
-         gotoxy(15,11);
-         printf("#5. supprimer un athlète disqualifié ou blesse\n");
-         gotoxy(15,12);
-         printf("#6. supprime toutes les epreuves pour lesquelles aucune inscription n' a ete enregistree.\n");
-         gotoxy(15,13);
-         printf("#7. Quitter le programme\n");
-         gotoxy(15,14);
-         printf("========================================================================\n");
-         up(14,y);
-            }
-break ;
-
-  case 10 :
-      if ( z == 0x0A)
-            {
-                 choix = 4 ;
-                 break ;
-            }
-if (z == 0x50)
-            {
-         clrscr();
-         gotoxy(15,5);
-         printf("Choisissez dans la liste suivante l'opération que vous souhaitez effectuer\n");
-         gotoxy(15,6);
-         printf("========================================================================\n");
-         gotoxy(15,7);
-         printf("#1. Affichier tous les athlethes de tous les epreuves et les pays\n");
-         gotoxy(15,8);
-         printf("#2. Inserer une athlethe\n");
-         gotoxy(15,9);
-         printf("#3. Afficher les noms de tous les athlethes d'un pays donne\n");
-         gotoxy(15,10);
-         printf("#4. Supprimer une pays a cause des raisons politiques\n");
-         gotoxy(15,11);
-         textbackground(GREEN) ;
-         printf("#5. supprimer un athlète disqualifié ou blesse\n");
-         textbackground(BLACK) ;
-         gotoxy(15,12);
-         printf("#6. supprime toutes les epreuves pour lesquelles aucune inscription n' a ete enregistree.\n");
-         gotoxy(15,13);
-         printf("#7. Quitter le programme\n");
-         gotoxy(15,14);
-         printf("========================================================================\n");
-         down(14,y);
-            }
-            else if ( z == 0x48)
-            {
-         clrscr();
-         gotoxy(15,5);
-         printf("Choisissez dans la liste suivante l'opération que vous souhaitez effectuer\n");
-         gotoxy(15,6);
-         printf("========================================================================\n");
-         gotoxy(15,7);
-
-
-         printf("#1. Affichier tous les athlethes de tous les epreuves et les pays\n");
-         gotoxy(15,8);
-
-         printf("#2. Inserer une athlethe\n");
-         gotoxy(15,9);
-                           textbackground(GREEN) ;
-
-         printf("#3. Afficher les noms de tous les athlethes d'un pays donne\n");
-         gotoxy(15,10);
-                           textbackground(BLACK) ;
-
-         printf("#4. Supprimer une pays a cause des raisons politiques\n");
-         gotoxy(15,11);
-         printf("#5. supprimer un athlète disqualifié ou blesse\n");
-         gotoxy(15,12);
-         printf("#6. supprime toutes les epreuves pour lesquelles aucune inscription n' a ete enregistree.\n");
-         gotoxy(15,13);
-         printf("#7. Quitter le programme\n");
-         gotoxy(15,14);
-         printf("========================================================================\n");
-         up(14,y);
-            }
-            break ;
-
-             case 11 :
-                 if ( z == 0x0A )
-            {
-                 choix = 5 ;
-                 break ;
-            }
-if (z == 0x50)
-            {
-         clrscr();
-         gotoxy(15,5);
-         printf("Choisissez dans la liste suivante l'opération que vous souhaitez effectuer\n");
-         gotoxy(15,6);
-         printf("========================================================================\n");
-         gotoxy(15,7);
-         printf("#1. Affichier tous les athlethes de tous les epreuves et les pays\n");
-         gotoxy(15,8);
-         printf("#2. Inserer une athlethe\n");
-
-         gotoxy(15,9);
-         printf("#3. Afficher les noms de tous les athlethes d'un pays donne\n");
-         gotoxy(15,10);
-
-         printf("#4. Supprimer une pays a cause des raisons politiques\n");
-         gotoxy(15,11);
-
-         printf("#5. supprimer un athlète disqualifié ou blesse\n");
-         gotoxy(15,12);
-                           textbackground(GREEN) ;
-
-         printf("#6. supprime toutes les epreuves pour lesquelles aucune inscription n' a ete enregistree.\n");
-         gotoxy(15,13);
-                           textbackground(BLACK) ;
-
-         printf("#7. Quitter le programme\n");
-         gotoxy(15,14);
-         printf("========================================================================\n");
-         down(14,y);
-            }
-            else if ( z == 0x48)
-            {
-         clrscr();
-         gotoxy(15,5);
-         printf("Choisissez dans la liste suivante l'opération que vous souhaitez effectuer\n");
-         gotoxy(15,6);
-         printf("========================================================================\n");
-         gotoxy(15,7);
-
-
-         printf("#1. Affichier tous les athlethes de tous les epreuves et les pays\n");
-         gotoxy(15,8);
-
-         printf("#2. Inserer une athlethe\n");
-         gotoxy(15,9);
-
-         printf("#3. Afficher les noms de tous les athlethes d'un pays donne\n");
-         gotoxy(15,10);
-                           textbackground(GREEN) ;
-
-         printf("#4. Supprimer une pays a cause des raisons politiques\n");
-         gotoxy(15,11);
-                                    textbackground(BLACK) ;
-
-         printf("#5. supprimer un athlète disqualifié ou blesse\n");
-         gotoxy(15,12);
-         printf("#6. supprime toutes les epreuves pour lesquelles aucune inscription n' a ete enregistree.\n");
-         gotoxy(15,13);
-         printf("#7. Quitter le programme\n");
-         gotoxy(15,14);
-         printf("========================================================================\n");
-         up(14,y);
-            }
-
-        break ;
-case 12 :
-    if ( z == 0x0A )
-            {
-                 choix = 6 ;
-                 break ;
-            }
-if (z == 0x50)
-            {
-         clrscr();
-         gotoxy(15,5);
-         printf("Choisissez dans la liste suivante l'opération que vous souhaitez effectuer\n");
-         gotoxy(15,6);
-         printf("========================================================================\n");
-         gotoxy(15,7);
-         printf("#1. Affichier tous les athlethes de tous les epreuves et les pays\n");
-         gotoxy(15,8);
-         printf("#2. Inserer une athlethe\n");
-
-         gotoxy(15,9);
-         printf("#3. Afficher les noms de tous les athlethes d'un pays donne\n");
-         gotoxy(15,10);
-
-         printf("#4. Supprimer une pays a cause des raisons politiques\n");
-         gotoxy(15,11);
-
-         printf("#5. supprimer un athlète disqualifié ou blesse\n");
-         gotoxy(15,12);
-
-
-         printf("#6. supprime toutes les epreuves pour lesquelles aucune inscription n' a ete enregistree.\n");
-         gotoxy(15,13);
-                           textbackground(GREEN) ;
-
-         printf("#7. Quitter le programme\n");
-         textbackground(BLACK) ;
-         gotoxy(15,14);
-         printf("========================================================================\n");
-         down(14,y);
-            }
-            else if ( z == 0x48)
-            {
-         clrscr();
-         gotoxy(15,5);
-         printf("Choisissez dans la liste suivante l'opération que vous souhaitez effectuer\n");
-         gotoxy(15,6);
-         printf("========================================================================\n");
-         gotoxy(15,7);
-
-
-         printf("#1. Affichier tous les athlethes de tous les epreuves et les pays\n");
-         gotoxy(15,8);
-
-         printf("#2. Inserer une athlethe\n");
-         gotoxy(15,9);
-
-         printf("#3. Afficher les noms de tous les athlethes d'un pays donne\n");
-         gotoxy(15,10);
-
-
-         printf("#4. Supprimer une pays a cause des raisons politiques\n");
-         gotoxy(15,11);
-                                    textbackground(GREEN) ;
-
-         printf("#5. supprimer un athlète disqualifié ou blesse\n");
-         gotoxy(15,12);
-          textbackground(BLACK) ;
-         printf("#6. supprime toutes les epreuves pour lesquelles aucune inscription n' a ete enregistree.\n");
-         gotoxy(15,13);
-         printf("#7. Quitter le programme\n");
-         gotoxy(15,14);
-         printf("========================================================================\n");
-         up(14,y);
-        }
-        break ;
-case 13 :
-    if ( z == 0x0A )
-            {
-                 choix = 7 ;
-                 break ;
-            }
-    if (z == 0x50)
-            {
-         clrscr();
-         gotoxy(15,5);
-         printf("Choisissez dans la liste suivante l'opération que vous souhaitez effectuer\n");
-         gotoxy(15,6);
-         printf("========================================================================\n");
-         gotoxy(15,7);
-         textbackground(GREEN) ;
-         printf("#1. Affichier tous les athlethes de tous les epreuves et les pays\n");
-         gotoxy(15,8);
-         textbackground(BLACK) ;
-         printf("#2. Inserer une athlethe\n");
-         gotoxy(15,9);
-         printf("#3. Afficher les noms de tous les athlethes d'un pays donne\n");
-         gotoxy(15,10);
-         printf("#4. Supprimer une pays a cause des raisons politiques\n");
-         gotoxy(15,11);
-         printf("#5. supprimer un athlète disqualifié ou blesse\n");
-         gotoxy(15,12);
-         printf("#6. supprime toutes les epreuves pour lesquelles aucune inscription n' a ete enregistree.\n");
-         gotoxy(15,13);
-         printf("#7. Quitter le programme\n");
-         gotoxy(15,14);
-         printf("========================================================================\n");
-         gotoxy(14,7);
-            }
-            else if ( z == 0x48)
-            {
-         clrscr();
-         gotoxy(15,5);
-         printf("Choisissez dans la liste suivante l'opération que vous souhaitez effectuer\n");
-         gotoxy(15,6);
-         printf("========================================================================\n");
-         gotoxy(15,7);
-         printf("#1. Affichier tous les athlethes de tous les epreuves et les pays\n");
-         gotoxy(15,8);
-         printf("#2. Inserer une athlethe\n");
-         gotoxy(15,9);
-         printf("#3. Afficher les noms de tous les athlethes d'un pays donne\n");
-         gotoxy(15,10);
-
-         printf("#4. Supprimer une pays a cause des raisons politiques\n");
-         gotoxy(15,11);
-
-         printf("#5. supprimer un athlète disqualifié ou blesse\n");
-         gotoxy(15,12);
-         textbackground(GREEN) ;
-         printf("#6. supprime toutes les epreuves pour lesquelles aucune inscription n' a ete enregistree.\n");
-         gotoxy(15,13);
-         textbackground(BLACK) ;
-         printf("#7. Quitter le programme\n");
-         gotoxy(15,14);
-         printf("========================================================================\n");
-         up(14,y);
-            }
-            break ;
-
-
-}
-}
 
 
     do
     {
-        switch (choix)
+         clrscr();
+         choix=console();
+         switch (choix)
     {
     case 1: // afficher kamel les athelethe ta3 kamel les epreuves w kamel les pays
         clrscr();
@@ -1160,4 +660,509 @@ void up(int x , int y )
      gotoxy(x,y-1);
 
 
+}
+int console()
+{
+ printf("Choisissez dans la liste suivante l'opération que vous souhaitez effectuer\n");
+    gotoxy(15,6);
+    printf("========================================================================\n");
+        gotoxy(15,7);
+        textbackground(GREEN) ;
+    printf("#1. Affichier tous les athlethes de tous les epreuves et les pays\n");
+        textbackground(BLACK) ;
+        gotoxy(15,8);
+    printf("#2. Inserer une athlethe\n");
+        gotoxy(15,9);
+    printf("#3. Afficher les noms de tous les athlethes d'un pays donne\n");
+        gotoxy(15,10);
+    printf("#4. Supprimer une pays a cause des raisons politiques\n");
+        gotoxy(15,11);
+    printf("#5. supprimer un athlète disqualifié ou blesse\n");
+        gotoxy(15,12);
+    printf("#6. supprime toutes les epreuves pour lesquelles aucune inscription n' a ete enregistree.\n");
+        gotoxy(15,13);
+    printf("#7. Quitter le programme\n");
+        gotoxy(15,14);
+    printf("========================================================================\n");
+        gotoxy(15,7);
+
+        while(1 )
+        {
+        int y = wherey() ;
+int         z = getch() ;
+        switch (y)
+        {
+        case 7  :
+            if ( z == 13)
+            {
+                return 1 ;
+                break ;
+            }
+            if (z == 0x50)
+            {
+         clrscr();
+         gotoxy(15,5);
+         printf("Choisissez dans la liste suivante l'opération que vous souhaitez effectuer\n");
+         gotoxy(15,6);
+         printf("========================================================================\n");
+         gotoxy(15,7);
+         printf("#1. Affichier tous les athlethes de tous les epreuves et les pays\n");
+         gotoxy(15,8);
+         textbackground(GREEN) ;
+         printf("#2. Inserer une athlethe\n");
+                  textbackground(BLACK) ;
+         gotoxy(15,9);
+         printf("#3. Afficher les noms de tous les athlethes d'un pays donne\n");
+         gotoxy(15,10);
+         printf("#4. Supprimer une pays a cause des raisons politiques\n");
+         gotoxy(15,11);
+         printf("#5. supprimer un athlète disqualifié ou blesse\n");
+         gotoxy(15,12);
+         printf("#6. supprime toutes les epreuves pour lesquelles aucune inscription n' a ete enregistree.\n");
+         gotoxy(15,13);
+         printf("#7. Quitter le programme\n");
+         gotoxy(15,14);
+         printf("========================================================================\n");
+         down(14,y);
+            }
+            else if ( z == 0x48)
+            {
+         clrscr();
+         gotoxy(15,5);
+         printf("Choisissez dans la liste suivante l'opération que vous souhaitez effectuer\n");
+         gotoxy(15,6);
+         printf("========================================================================\n");
+         gotoxy(15,7);
+         printf("#1. Affichier tous les athlethes de tous les epreuves et les pays\n");
+         gotoxy(15,8);
+         printf("#2. Inserer une athlethe\n");
+         gotoxy(15,9);
+         printf("#3. Afficher les noms de tous les athlethes d'un pays donne\n");
+         gotoxy(15,10);
+         printf("#4. Supprimer une pays a cause des raisons politiques\n");
+         gotoxy(15,11);
+         printf("#5. supprimer un athlète disqualifié ou blesse\n");
+         gotoxy(15,12);
+         printf("#6. supprime toutes les epreuves pour lesquelles aucune inscription n' a ete enregistree.\n");
+         gotoxy(15,13);
+         textbackground(GREEN) ;
+         printf("#7. Quitter le programme\n");
+         gotoxy(15,14);
+         textbackground(BLACK);
+         printf("========================================================================\n");
+         gotoxy(14,13);
+            }
+            break ;
+        case 8 :
+            if ( z == 13 )
+            {
+                return 2 ;
+                break ;
+            }
+               if (z == 0x50)
+            {
+         clrscr();
+         gotoxy(15,5);
+         printf("Choisissez dans la liste suivante l'opération que vous souhaitez effectuer\n");
+         gotoxy(15,6);
+         printf("========================================================================\n");
+         gotoxy(15,7);
+         printf("#1. Affichier tous les athlethes de tous les epreuves et les pays\n");
+         gotoxy(15,8);
+         printf("#2. Inserer une athlethe\n");
+         textbackground(GREEN) ;
+         gotoxy(15,9);
+         printf("#3. Afficher les noms de tous les athlethes d'un pays donne\n");
+         textbackground(BLACK) ;
+         gotoxy(15,10);
+         printf("#4. Supprimer une pays a cause des raisons politiques\n");
+         gotoxy(15,11);
+         printf("#5. supprimer un athlète disqualifié ou blesse\n");
+         gotoxy(15,12);
+         printf("#6. supprime toutes les epreuves pour lesquelles aucune inscription n' a ete enregistree.\n");
+         gotoxy(15,13);
+         printf("#7. Quitter le programme\n");
+         gotoxy(15,14);
+         printf("========================================================================\n");
+         down(14,y);
+            }
+            else if ( z == 0x48)
+            {
+         clrscr();
+         gotoxy(15,5);
+         printf("Choisissez dans la liste suivante l'opération que vous souhaitez effectuer\n");
+         gotoxy(15,6);
+         printf("========================================================================\n");
+         gotoxy(15,7);
+                 textbackground(GREEN) ;
+
+         printf("#1. Affichier tous les athlethes de tous les epreuves et les pays\n");
+         gotoxy(15,8);
+                 textbackground(BLACK);
+
+         printf("#2. Inserer une athlethe\n");
+         gotoxy(15,9);
+         printf("#3. Afficher les noms de tous les athlethes d'un pays donne\n");
+         gotoxy(15,10);
+         printf("#4. Supprimer une pays a cause des raisons politiques\n");
+         gotoxy(15,11);
+         printf("#5. supprimer un athlète disqualifié ou blesse\n");
+         gotoxy(15,12);
+         printf("#6. supprime toutes les epreuves pour lesquelles aucune inscription n' a ete enregistree.\n");
+         gotoxy(15,13);
+         printf("#7. Quitter le programme\n");
+         gotoxy(15,14);
+         printf("========================================================================\n");
+         up(14,y);
+            }
+            break ;
+        case 9 :
+            if ( z == 13 )
+            {
+                 return 3 ;
+                 break ;
+            }
+         if (z == 0x50)
+            {
+         clrscr();
+         gotoxy(15,5);
+         printf("Choisissez dans la liste suivante l'opération que vous souhaitez effectuer\n");
+         gotoxy(15,6);
+         printf("========================================================================\n");
+         gotoxy(15,7);
+         printf("#1. Affichier tous les athlethes de tous les epreuves et les pays\n");
+         gotoxy(15,8);
+         printf("#2. Inserer une athlethe\n");
+
+         gotoxy(15,9);
+         printf("#3. Afficher les noms de tous les athlethes d'un pays donne\n");
+         gotoxy(15,10);
+                  textbackground(GREEN) ;
+
+         printf("#4. Supprimer une pays a cause des raisons politiques\n");
+         gotoxy(15,11);
+                  textbackground(BLACK) ;
+
+         printf("#5. supprimer un athlète disqualifié ou blesse\n");
+         gotoxy(15,12);
+         printf("#6. supprime toutes les epreuves pour lesquelles aucune inscription n' a ete enregistree.\n");
+         gotoxy(15,13);
+         printf("#7. Quitter le programme\n");
+         gotoxy(15,14);
+         printf("========================================================================\n");
+         down(14,y);
+            }
+            else if ( z == 0x48)
+            {
+         clrscr();
+         gotoxy(15,5);
+         printf("Choisissez dans la liste suivante l'opération que vous souhaitez effectuer\n");
+         gotoxy(15,6);
+         printf("========================================================================\n");
+         gotoxy(15,7);
+
+
+         printf("#1. Affichier tous les athlethes de tous les epreuves et les pays\n");
+         gotoxy(15,8);
+          textbackground(GREEN) ;
+
+         printf("#2. Inserer une athlethe\n");
+         gotoxy(15,9);
+         textbackground(BLACK) ;
+         printf("#3. Afficher les noms de tous les athlethes d'un pays donne\n");
+         gotoxy(15,10);
+         printf("#4. Supprimer une pays a cause des raisons politiques\n");
+         gotoxy(15,11);
+         printf("#5. supprimer un athlète disqualifié ou blesse\n");
+         gotoxy(15,12);
+         printf("#6. supprime toutes les epreuves pour lesquelles aucune inscription n' a ete enregistree.\n");
+         gotoxy(15,13);
+         printf("#7. Quitter le programme\n");
+         gotoxy(15,14);
+         printf("========================================================================\n");
+         up(14,y);
+            }
+break ;
+
+  case 10 :
+      if ( z == 13)
+            {
+                 return 4 ;
+                 break ;
+            }
+if (z == 0x50)
+            {
+         clrscr();
+         gotoxy(15,5);
+         printf("Choisissez dans la liste suivante l'opération que vous souhaitez effectuer\n");
+         gotoxy(15,6);
+         printf("========================================================================\n");
+         gotoxy(15,7);
+         printf("#1. Affichier tous les athlethes de tous les epreuves et les pays\n");
+         gotoxy(15,8);
+         printf("#2. Inserer une athlethe\n");
+         gotoxy(15,9);
+         printf("#3. Afficher les noms de tous les athlethes d'un pays donne\n");
+         gotoxy(15,10);
+         printf("#4. Supprimer une pays a cause des raisons politiques\n");
+         gotoxy(15,11);
+         textbackground(GREEN) ;
+         printf("#5. supprimer un athlète disqualifié ou blesse\n");
+         textbackground(BLACK) ;
+         gotoxy(15,12);
+         printf("#6. supprime toutes les epreuves pour lesquelles aucune inscription n' a ete enregistree.\n");
+         gotoxy(15,13);
+         printf("#7. Quitter le programme\n");
+         gotoxy(15,14);
+         printf("========================================================================\n");
+         down(14,y);
+            }
+            else if ( z == 0x48)
+            {
+         clrscr();
+         gotoxy(15,5);
+         printf("Choisissez dans la liste suivante l'opération que vous souhaitez effectuer\n");
+         gotoxy(15,6);
+         printf("========================================================================\n");
+         gotoxy(15,7);
+
+
+         printf("#1. Affichier tous les athlethes de tous les epreuves et les pays\n");
+         gotoxy(15,8);
+
+         printf("#2. Inserer une athlethe\n");
+         gotoxy(15,9);
+                           textbackground(GREEN) ;
+
+         printf("#3. Afficher les noms de tous les athlethes d'un pays donne\n");
+         gotoxy(15,10);
+                           textbackground(BLACK) ;
+
+         printf("#4. Supprimer une pays a cause des raisons politiques\n");
+         gotoxy(15,11);
+         printf("#5. supprimer un athlète disqualifié ou blesse\n");
+         gotoxy(15,12);
+         printf("#6. supprime toutes les epreuves pour lesquelles aucune inscription n' a ete enregistree.\n");
+         gotoxy(15,13);
+         printf("#7. Quitter le programme\n");
+         gotoxy(15,14);
+         printf("========================================================================\n");
+         up(14,y);
+            }
+            break ;
+
+             case 11 :
+                 if ( z == 13 )
+            {
+                 return 5 ;
+                 break ;
+            }
+if (z == 0x50)
+            {
+         clrscr();
+         gotoxy(15,5);
+         printf("Choisissez dans la liste suivante l'opération que vous souhaitez effectuer\n");
+         gotoxy(15,6);
+         printf("========================================================================\n");
+         gotoxy(15,7);
+         printf("#1. Affichier tous les athlethes de tous les epreuves et les pays\n");
+         gotoxy(15,8);
+         printf("#2. Inserer une athlethe\n");
+
+         gotoxy(15,9);
+         printf("#3. Afficher les noms de tous les athlethes d'un pays donne\n");
+         gotoxy(15,10);
+
+         printf("#4. Supprimer une pays a cause des raisons politiques\n");
+         gotoxy(15,11);
+
+         printf("#5. supprimer un athlète disqualifié ou blesse\n");
+         gotoxy(15,12);
+                           textbackground(GREEN) ;
+
+         printf("#6. supprime toutes les epreuves pour lesquelles aucune inscription n' a ete enregistree.\n");
+         gotoxy(15,13);
+                           textbackground(BLACK) ;
+
+         printf("#7. Quitter le programme\n");
+         gotoxy(15,14);
+         printf("========================================================================\n");
+         down(14,y);
+            }
+            else if ( z == 0x48)
+            {
+         clrscr();
+         gotoxy(15,5);
+         printf("Choisissez dans la liste suivante l'opération que vous souhaitez effectuer\n");
+         gotoxy(15,6);
+         printf("========================================================================\n");
+         gotoxy(15,7);
+
+
+         printf("#1. Affichier tous les athlethes de tous les epreuves et les pays\n");
+         gotoxy(15,8);
+
+         printf("#2. Inserer une athlethe\n");
+         gotoxy(15,9);
+
+         printf("#3. Afficher les noms de tous les athlethes d'un pays donne\n");
+         gotoxy(15,10);
+                           textbackground(GREEN) ;
+
+         printf("#4. Supprimer une pays a cause des raisons politiques\n");
+         gotoxy(15,11);
+                                    textbackground(BLACK) ;
+
+         printf("#5. supprimer un athlète disqualifié ou blesse\n");
+         gotoxy(15,12);
+         printf("#6. supprime toutes les epreuves pour lesquelles aucune inscription n' a ete enregistree.\n");
+         gotoxy(15,13);
+         printf("#7. Quitter le programme\n");
+         gotoxy(15,14);
+         printf("========================================================================\n");
+         up(14,y);
+            }
+
+        break ;
+case 12 :
+    if ( z == 13 )
+            {
+                 return 6 ;
+                 break ;
+            }
+if (z == 0x50)
+            {
+         clrscr();
+         gotoxy(15,5);
+         printf("Choisissez dans la liste suivante l'opération que vous souhaitez effectuer\n");
+         gotoxy(15,6);
+         printf("========================================================================\n");
+         gotoxy(15,7);
+         printf("#1. Affichier tous les athlethes de tous les epreuves et les pays\n");
+         gotoxy(15,8);
+         printf("#2. Inserer une athlethe\n");
+
+         gotoxy(15,9);
+         printf("#3. Afficher les noms de tous les athlethes d'un pays donne\n");
+         gotoxy(15,10);
+
+         printf("#4. Supprimer une pays a cause des raisons politiques\n");
+         gotoxy(15,11);
+
+         printf("#5. supprimer un athlète disqualifié ou blesse\n");
+         gotoxy(15,12);
+
+
+         printf("#6. supprime toutes les epreuves pour lesquelles aucune inscription n' a ete enregistree.\n");
+         gotoxy(15,13);
+                           textbackground(GREEN) ;
+
+         printf("#7. Quitter le programme\n");
+         textbackground(BLACK) ;
+         gotoxy(15,14);
+         printf("========================================================================\n");
+         down(14,y);
+            }
+            else if ( z == 0x48)
+            {
+         clrscr();
+         gotoxy(15,5);
+         printf("Choisissez dans la liste suivante l'opération que vous souhaitez effectuer\n");
+         gotoxy(15,6);
+         printf("========================================================================\n");
+         gotoxy(15,7);
+
+
+         printf("#1. Affichier tous les athlethes de tous les epreuves et les pays\n");
+         gotoxy(15,8);
+
+         printf("#2. Inserer une athlethe\n");
+         gotoxy(15,9);
+
+         printf("#3. Afficher les noms de tous les athlethes d'un pays donne\n");
+         gotoxy(15,10);
+
+
+         printf("#4. Supprimer une pays a cause des raisons politiques\n");
+         gotoxy(15,11);
+                                    textbackground(GREEN) ;
+
+         printf("#5. supprimer un athlète disqualifié ou blesse\n");
+         gotoxy(15,12);
+          textbackground(BLACK) ;
+         printf("#6. supprime toutes les epreuves pour lesquelles aucune inscription n' a ete enregistree.\n");
+         gotoxy(15,13);
+         printf("#7. Quitter le programme\n");
+         gotoxy(15,14);
+         printf("========================================================================\n");
+         up(14,y);
+        }
+        break ;
+case 13 :
+    if ( z == 13 )
+            {
+                 return 7 ;
+                 break ;
+            }
+    if (z == 0x50)
+            {
+         clrscr();
+         gotoxy(15,5);
+         printf("Choisissez dans la liste suivante l'opération que vous souhaitez effectuer\n");
+         gotoxy(15,6);
+         printf("========================================================================\n");
+         gotoxy(15,7);
+         textbackground(GREEN) ;
+         printf("#1. Affichier tous les athlethes de tous les epreuves et les pays\n");
+         gotoxy(15,8);
+         textbackground(BLACK) ;
+         printf("#2. Inserer une athlethe\n");
+         gotoxy(15,9);
+         printf("#3. Afficher les noms de tous les athlethes d'un pays donne\n");
+         gotoxy(15,10);
+         printf("#4. Supprimer une pays a cause des raisons politiques\n");
+         gotoxy(15,11);
+         printf("#5. supprimer un athlète disqualifié ou blesse\n");
+         gotoxy(15,12);
+         printf("#6. supprime toutes les epreuves pour lesquelles aucune inscription n' a ete enregistree.\n");
+         gotoxy(15,13);
+         printf("#7. Quitter le programme\n");
+         gotoxy(15,14);
+         printf("========================================================================\n");
+         gotoxy(14,7);
+            }
+            else if ( z == 0x48)
+            {
+         clrscr();
+         gotoxy(15,5);
+         printf("Choisissez dans la liste suivante l'opération que vous souhaitez effectuer\n");
+         gotoxy(15,6);
+         printf("========================================================================\n");
+         gotoxy(15,7);
+         printf("#1. Affichier tous les athlethes de tous les epreuves et les pays\n");
+         gotoxy(15,8);
+         printf("#2. Inserer une athlethe\n");
+         gotoxy(15,9);
+         printf("#3. Afficher les noms de tous les athlethes d'un pays donne\n");
+         gotoxy(15,10);
+
+         printf("#4. Supprimer une pays a cause des raisons politiques\n");
+         gotoxy(15,11);
+
+         printf("#5. supprimer un athlète disqualifié ou blesse\n");
+         gotoxy(15,12);
+         textbackground(GREEN) ;
+         printf("#6. supprime toutes les epreuves pour lesquelles aucune inscription n' a ete enregistree.\n");
+         gotoxy(15,13);
+         textbackground(BLACK) ;
+         printf("#7. Quitter le programme\n");
+         gotoxy(15,14);
+         printf("========================================================================\n");
+         up(14,y);
+            }
+            break ;
+
+
+}
+}
 }
