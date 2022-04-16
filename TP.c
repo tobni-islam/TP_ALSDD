@@ -121,21 +121,17 @@ int main()
     creer_tabjo(tabjo,tabnom);
 
         gotoxy (35,3);
+         textbackground(CYAN);
         printf("Creation de la matrice tabjo est en cours\n");
         gotoxy(35,5);
-        for(int i=0 ; i<3 ; i++)
+         textbackground(BLACK);
+        for(int i=0 ; i<4 ; i++)
         {
         sleep(1);
         printf(".") ;
         }
         gotoxy(35,6);
-         for(int i=0 ; i<3 ; i++)
-        {
-        sleep(1);
-        printf(".") ;
-        }
-        gotoxy(35,7);
-         for(int i=0 ; i<3 ; i++)
+         for(int i=0 ; i<4 ; i++)
         {
         sleep(1);
         printf(".") ;
@@ -143,21 +139,25 @@ int main()
         gotoxy(35,8);
         printf("\n") ;
         gotoxy(35,9);
-        printf("la matrice a ete cree avec succes \n");
+        printf("la matrice a ete cree avec succes !!\n");
 
 
         break;
     case 2:
         clrscr();// insertion d'un athlethe
-        gotoxy(35,3);
-        printf("  Insertion d'un athlethe \n\n");
+        gotoxy(31,3);
+        printf("=======================================================\n");
         gotoxy(35,5);
+        textbackground(CYAN);
+        printf("  Insertion d'un athlethe \n\n");
+        gotoxy(35,7);
+        textbackground(BLACK);
         printf("> Entrez le nom de l'athlethe -->  ");
         fgets(nom,25,stdin); // lire le nom de l'athlethe
-        gotoxy(35,6);
+        gotoxy(35,8);
         printf("> Entrez le nom de l'epreuve --> ");
         fgets(epreuve,255,stdin); // lire le nom de l'epreuve
-        gotoxy(35,7);
+        gotoxy(35,9);
         printf("> Entrez le nom du pays -->   ");
         fgets(pays,255,stdin); //lire le nom du pays
         nume = indice_epreuve(epreuve,tabepreuve,*nbepreuve);
@@ -166,29 +166,36 @@ int main()
         printf("\n");
         if(nume > *nbepreuve) // si l'epreuve n'existe pas (chof indice epreuve / indice pays bah tzid tafham)
         {
-            gotoxy(35,9);
+            gotoxy(35,10);
             printf("Cet epreuve n'existe pas dans les jeux olympique\n");
         }
         else if(nump > *nbpays) // si le pays n'existe pas
         {
-            gotoxy(35,9);
+            gotoxy(35,10);
             printf("Ce pays n'existe pas dans les jeux olympiques\n");
         }
         else{
             printf("\n");
             inserath(nom,nump,nume,tabjo);
+            gotoxy(31,wherey());
+            printf("=======================================================\n");
         }
         break;
     case 3:
         clrscr();  //afficher les noms de tous les athlethes d'un pays donne
         gotoxy(35,5);
-        printf("  Affichage de tous les athlethes d'un pays donne \n");
+        printf("=======================================================\n");
+        textbackground(CYAN) ;
         gotoxy(35,6);
+        printf("  Affichage de tous les athlethes d'un pays donne \n");
+        gotoxy(35,8);
+        textbackground(BLACK);
         printf(" > Entrez le nom de pays -->  ");
         fgets(pays,255,stdin);
-        gotoxy(35,8);
+        gotoxy(35,10);
         listathpays(pays,tabpays,*nbpays,tabepreuve,*nbepreuve,tabjo);
-        printf("===================================================\n");
+        gotoxy(27,wherey());
+        printf("========================================================\n");
         printf("\n");
         break;
     case 4 :
@@ -204,8 +211,11 @@ int main()
         gotoxy(27,4);
         printf("==================================================================\n");
         gotoxy(35,6);
+        textbackground(CYAN);
         printf("   Suppression d'un pays \n");
         gotoxy(35,8);
+                textbackground(BLACK);
+
         printf("> Entrez le nom du pays -->   ");
         fgets(pays,255,stdin);
         if(verif_pays(pays,tabpays,*nbpays)){
@@ -226,8 +236,11 @@ int main()
         printf("==================================================================\n");
         clrscr();// supprimer athlethe
         gotoxy(35,7);
+        textbackground(CYAN);
         printf("   Supression d'un athlethe \n");
         gotoxy(35,9);
+                textbackground(BLACK);
+
         printf("> Entrez le pays de cet athlethe -->  ");
 
         fgets(pays,255,stdin);
@@ -263,15 +276,37 @@ int main()
         break;
     case 7:
         clrscr(); // supprimer toutes les épreuves pour lesquelles aucune inscription n’a été enregistrée.
-        printf("  ## Suppression de toutes les epreuves pour lesquelles aucune inscription n'a ete enregistree ##\n");
+        gotoxy(27,5);
+         printf("=========================================================================\n");
+         textbackground(CYAN);
+                 gotoxy(20,7);
+
+
+        printf("Suppression de toutes les epreuves pour lesquelles aucune inscription n'a ete enregistree \n");
+        textbackground(BLACK);
+        gotoxy (35,9);
+        for(int i=0 ; i<4 ; i++)
+        {
+        sleep(1);
+        printf(".") ;
+        }
+        gotoxy(35,10);
+         for(int i=0 ; i<4 ; i++)
+        {
+        sleep(1);
+        printf(".") ;
+        }
         suplignesvides(tabjo,*nbpays,nbepreuve,tabepreuve);
-        printf("\ntoutes les epreuves pour lesquelles aucune inscription n'a ete enregistree ont ete supprimees \n");
-        printf("==================================================================\n");
+        gotoxy(18,12);
+        printf("toutes les epreuves pour lesquelles aucune inscription n'a ete enregistree ont ete supprimees \n");
+        gotoxy(27,14);
+        printf("==========================================================================\n");
         getchar();
         break;
     case 8:
         clrscr(); //Quitter
-        printf("   ##  Quitter le programme  ##\n");
+        gotoxy(35,12);
+        printf(" Merci d'avoir bien utiliser notre programme \n ");
         break;
     }
     printf("\n\n");
@@ -314,7 +349,7 @@ ptr create(string tabnom[50])
     ptr tete,tmp,nouv ;
     int n,m ;
     n = rand() % 11 ;
-    m = rand() % 40 ;
+    m = rand() % 140 ;
     tete = NULL ;
     for (int i=0 ; i< n ; i++ )
     {
@@ -480,17 +515,17 @@ void inserath(string nomath , int nump ,int nume , ptr tabjo[maxepreuve][maxpays
         aff_nom(ath,nomath);
         aff_adr(ath,tabjo[nume][nump]);// aff_adr m3a la tete de liste
         tabjo[nume][nump] = ath;  // la nouveau tete est le nouveau maillon.
-        gotoxy(35,9);
-        printf("la nouvelle liste des athlethes \n");
         gotoxy(35,11);
+        printf("la nouvelle liste des athlethes : \n");
+        gotoxy(35,13);
         afficher(tabjo[nume][nump]);
     }else if (longeur(tabjo[nume][nump]) == 10)
     {
-        gotoxy(35,9) ;
+        gotoxy(30,10) ;
         printf("Il y a deje 10 athletes inscrits, vous ne pouvez pas inserer un autre athlete!\n");
         printf("\n");
     }else{
-        gotoxy(35,9);
+        gotoxy(35,10);
         printf("il y a deja un athlethe inscrit avec ce nom.\n");
         printf("\n");
     }
