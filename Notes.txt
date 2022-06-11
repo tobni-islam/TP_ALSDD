@@ -1,8 +1,0 @@
-> THIS FILE TXT WILL CONTAIN ALL OF NOTES WE NEED FOR THE TP ALSDD
-------------------------------------------------------------------------------------------------------------------------------------
-1. rani virifit les procedures li khdemethom w testit les cas possibles .
-2. kemelt les procedures les bkaw (5 eme + 8 eme) w rahom ymcho bien tsema hka rana kmelna les procedures kamel mzal ghir l'optimization + les cas 
-specials (les noms arabs, les noms femme et homme, kermi w judo , les cas t3 l3bad samtin kima tdekhel dowla makanech wla les noms maj et min ... etc) 
-hada khati l'affichage les lazm nakhadmo 3lih tani.
-3. ki theb testi haja bah tneqes 3la rohek atle3 lfoq w bedel ghir maxpays, maxepreuve (example maxpays =3, maxepreuve =3) bah tji wadha w sahla bah testiha w tchof resultat w mbe3d raja3ha normal.
-
